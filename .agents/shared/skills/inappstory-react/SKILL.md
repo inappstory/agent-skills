@@ -27,6 +27,26 @@ to the exact page and expects you to **fetch it on demand**.
 
 Base URL: `https://docs.inappstory.com/sdk-guides/react-sdk/`
 
+## Judgment layer (read these first — what a doc page won't tell you)
+
+- **[playbooks.md](playbooks.md)** — end-to-end recipes (list, onboardings, single
+  story, IAM, personalize, CSP deploy) with the `IASContainer`/`StoryList` nesting.
+- **[pitfalls.md](pitfalls.md)** — grounded gotchas: `<StoryList>` must nest in
+  `<IASContainer>`, `feedSlug` (not `feed`), options split (common/list/reader),
+  version-gated config flags, CSP & ES5 builds.
+- **[decisions.md](decisions.md)** — where each config field goes, which feed,
+  anonymous vs identified, events via container props vs manager instance.
+
+## Before you answer or write integration code
+
+1. **Check the package version** in `package.json` (`@inappstory/react-sdk`);
+   if absent, ask. Config flags are version-gated (`options` v1.7.6, `anonymous`
+   v3.6.6, `hybridApp` v1.14.0) — answer for that version.
+2. **Match the existing codebase** — reuse the app's options module, where the
+   apiKey/`StoryManagerConfig` lives, its `IASContainer` placement. Extend, don't
+   paste a second container.
+3. **Then** fetch the topic page and write against the live API.
+
 ## Topics
 
 ### Getting started & core

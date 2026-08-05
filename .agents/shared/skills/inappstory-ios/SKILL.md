@@ -27,6 +27,33 @@ to the exact page and expects you to **fetch it on demand**.
 
 Base URL: `https://docs.inappstory.com/sdk-guides/ios/`
 
+## Judgment layer (read these first — what a doc page won't tell you)
+
+The docs answer "what's the API for X". These answer "how do I do the whole task,
+what will bite me, which option to pick" — synthesis across pages:
+
+- **[playbooks.md](playbooks.md)** — end-to-end recipes (add a list, onboardings,
+  single story, IAM, events, switch user), each forked UIKit vs SwiftUI.
+- **[pitfalls.md](pitfalls.md)** — grounded gotchas & **version traps**: the
+  UIKit/SwiftUI split, the delegate→closure migration (1.22/1.23), Settings byte
+  limits, IAM 1.28 breaking change, `.create()` lifecycle, renames.
+- **[decisions.md](decisions.md)** — decision guides (UIKit vs SwiftUI, which
+  action API by version, which content entry point, IAM version).
+
+## Before you answer or write integration code
+
+1. **Detect the framework — UIKit or SwiftUI.** They are *different SDKs* (module,
+   pod tag, min iOS, list class). Look for `import InAppStorySDK` vs
+   `import InAppStorySDK_SwiftUI`, or `StoryView` vs `StoryListView`. Never mix guides.
+2. **Check the SDK version.** The iOS API changed heavily (delegates removed in
+   1.23, IAM signature in 1.28). Grep `Podfile` / `Package.swift` / `Cartfile` for
+   the `inappstory` tag; if absent, ask. Answer for *that* version; fetch
+   **migrations** for deltas.
+3. **Match the existing codebase (codebase-aware).** Grep for `InAppStory.shared`,
+   `initWith`, `StoryView`/`StoryListView` and reuse the app's patterns (where the
+   serviceKey lives, its wrapper). Extend the integration; don't paste a fresh one.
+4. **Then** fetch the topic page and write against the live API.
+
 ## Topics
 
 ### Getting started & core

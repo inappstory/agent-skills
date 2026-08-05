@@ -28,6 +28,30 @@ to the exact page and expects you to **fetch it on demand**.
 
 Base URL: `https://docs.inappstory.com/sdk-guides/android/`
 
+## Judgment layer (read these first — they're what a doc page won't tell you)
+
+The docs answer "what's the API for X". These files answer "how do I do the whole
+task, what will bite me, and which option to pick" — synthesis across pages:
+
+- **[playbooks.md](playbooks.md)** — end-to-end task recipes (add a feed, onboardings,
+  single story, IAM, switch user) with the exact call sequence and pages.
+- **[pitfalls.md](pitfalls.md)** — grounded gotchas & **version traps** (init order,
+  `DataException`, worker-thread cell binding, memory-leak callbacks, renames).
+- **[decisions.md](decisions.md)** — decision guides (which stories UI / cell interface
+  / callback / IAM version).
+
+## Before you answer or write integration code
+
+1. **Check the SDK version.** The Android API changed heavily across releases
+   (see pitfalls.md). Grep the app's gradle for
+   `com.github.inappstory:android-sdk:X.Y.Z`; if you can't find it, ask. Answer for
+   *that* version, and fetch **migrations** for deltas to the latest.
+2. **Match the existing codebase (codebase-aware).** Before writing code, grep for
+   an existing setup — `InAppStoryManager`, `initSdk`, `csApiKey`, `StoriesList` —
+   and reuse the app's patterns: its language (Kotlin/Java), where `apiKey`/`userId`
+   live, its wrapper/DI. Extend their integration; don't paste a fresh one beside it.
+3. **Then** fetch the relevant topic page and write against the live API.
+
 ## Topics
 
 ### Getting started & core

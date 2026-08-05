@@ -26,6 +26,29 @@ points to the exact page and expects you to **fetch it on demand**.
 
 Base URL: `https://docs.inappstory.com/sdk-guides/react-native/`
 
+## Judgment layer (read these first — what a doc page won't tell you)
+
+- **[playbooks.md](playbooks.md)** — end-to-end recipes incl. the mandatory native
+  host setup (iOS static frameworks, Android `initSDK` + `InAppStoryActivity` +
+  manifest), CodePush version override.
+- **[pitfalls.md](pitfalls.md)** — grounded gotchas: static-frameworks Podfile,
+  `initSDK(this as Application)` form (0.28+), `MainActivity : InAppStoryActivity`
+  + `enableOnBackInvokedCallback` (0.27+), legacy-SDK font/svgMask breaks.
+- **[decisions.md](decisions.md)** — base class & `initSDK` form by version, app-
+  version source (CodePush), where the docs are thin (fall back to native pages).
+
+## Before you answer or write integration code
+
+1. **Check the package version** in `package.json`
+   (`@inappstory/react-native-sdk`); if absent, ask. Native init changed at 0.27
+   and 0.28 — answer for that version, fetch **migrations** for deltas.
+2. **Verify the native host setup** — iOS static frameworks, and Android
+   `MainApplication.initSDK` / `MainActivity : InAppStoryActivity` / manifest flag.
+   Most Android failures are here, not in JS.
+3. **Match the existing codebase** — reuse the app's `StoryManager` config/wrapper
+   and where the apiKey lives. Extend, don't paste anew.
+4. **Then** fetch the topic page and write against the live API.
+
 ## Topics
 
 ### Getting started & core

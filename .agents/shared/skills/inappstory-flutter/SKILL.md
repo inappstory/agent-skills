@@ -27,6 +27,28 @@ to the exact page and expects you to **fetch it on demand**.
 
 Base URL: `https://docs.inappstory.com/sdk-guides/flutter/`
 
+## Judgment layer (read these first — what a doc page won't tell you)
+
+- **[playbooks.md](playbooks.md)** — end-to-end recipes (feed, onboardings, single
+  story, IAM, switch user, banners) including the mandatory native Android steps.
+- **[pitfalls.md](pitfalls.md)** — grounded gotchas: native setup (`initSDK` in
+  `Application`, `MainActivity : InAppStoryActivity`), async `initWith`, singleton
+  `.instance` migration, HostApi→singleton renames (0.8.0).
+- **[decisions.md](decisions.md)** — `MainActivity` base class by version, singleton
+  vs old HostApi, which list widget, callback mixins.
+
+## Before you answer or write integration code
+
+1. **Check the plugin version** in `pubspec.yaml` (`inappstory_plugin: X.Y.Z`);
+   if absent, ask. The API changed across 0.x (singletons, 0.8.0 renames) — answer
+   for that version and fetch **migrations** for deltas.
+2. **Verify the native Android setup** — most "doesn't work on Android" reports are
+   a missing `InAppStoryPlugin.initSDK` or `MainActivity` not extending
+   `InAppStoryActivity`. Check these before debugging Dart.
+3. **Match the existing codebase** — reuse the app's Application class, where the
+   apiKey lives, its manager wrapper. Extend, don't paste anew.
+4. **Then** fetch the topic page and write against the live API.
+
 ## Topics
 
 ### Getting started & core

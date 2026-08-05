@@ -26,6 +26,26 @@ to the exact page and expects you to **fetch it on demand**.
 
 Base URL: `https://docs.inappstory.com/sdk-guides/js-sdk/`
 
+## Judgment layer (read these first — what a doc page won't tell you)
+
+- **[playbooks.md](playbooks.md)** — end-to-end recipes for both NPM and CDN (list,
+  events, features, personalize, CSP deploy) with the construction sequence.
+- **[pitfalls.md](pitfalls.md)** — grounded gotchas: the `StoryManager`→
+  `InAppStoryManager` rename (JS SDK 3), `window.IAS.*` on CDN, mount-`<div>`
+  ordering, `.on()` events, version-gated config flags.
+- **[decisions.md](decisions.md)** — NPM vs CDN, the manager rename, anonymous vs
+  identified, which entry point, browser support / CSP.
+
+## Before you answer or write integration code
+
+1. **Check the version** in `package.json` (`@inappstory/js-sdk`) or the CDN script
+   URL; if absent, ask. **JS SDK 3 renamed `StoryManager`→`InAppStoryManager`** and
+   flags are version-gated — answer for that version.
+2. **Detect NPM vs CDN** — imports vs `window.IAS.*` change every snippet.
+3. **Match the existing codebase** — reuse the app's mount `<div>` id, where the
+   apiKey lives, its manager instance. Extend, don't paste anew.
+4. **Then** fetch the topic page and write against the live API.
+
 ## Topics
 
 ### Getting started & core
