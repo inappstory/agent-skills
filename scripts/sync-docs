@@ -13,10 +13,10 @@
 # refresh (then re-run with --save to accept the new baseline).
 #
 # Usage:
-#   .agents/sync-docs               # report drift vs saved baseline
-#   .agents/sync-docs --pull        # git pull the docs repo first, then report
-#   .agents/sync-docs --save        # accept current docs as the new baseline
-#   IAS_DOCS=/path/to/docs .agents/sync-docs
+#   scripts/sync-docs               # report drift vs saved baseline
+#   scripts/sync-docs --pull        # git pull the docs repo first, then report
+#   scripts/sync-docs --save        # accept current docs as the new baseline
+#   IAS_DOCS=/path/to/docs scripts/sync-docs
 #
 # Exits non-zero when drift is found (so CI can gate on it).
 #
@@ -27,8 +27,8 @@ set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 docs="${IAS_DOCS:-$root/../in-app-stories-docs/docs}"
-skills_dir="$root/.agents/shared/skills"
-state="$root/.agents/sync-docs.state"
+skills_dir="$root/skills"
+state="$root/scripts/sync-docs.state"
 
 pull=0; save=0
 for a in "$@"; do

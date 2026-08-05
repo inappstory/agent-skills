@@ -1,0 +1,13 @@
+{
+  "name": "ias-agent-skills",
+  "owner": { "name": "Alex Sungurov" },
+  "plugins": [
+    {
+      "name": "inappstory",
+      "source": "./",
+      "description": "IAS SDK integration skills for all six platforms (Android, iOS, Flutter, React Native, React, JS). Installs six skills that route to docs.inappstory.com and carry curated playbooks, pitfalls and decision guides.",
+      "category": "development",
+      "tags": ["inappstory", "sdk", "mobile", "web", "stories"]
+    }
+  ]
+}
