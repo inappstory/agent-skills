@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" width="100%" height="auto" role="img" aria-labelledby="arch-title arch-desc">
+  <title id="arch-title">How Each Skill Works - Router and Judgment Layer Architecture</title>
+  <desc id="arch-desc">4-step architecture diagram: User Prompt -> Live Router -> Judgment Layer -> Production Code.</desc>
+
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-arch" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0F19"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#070A12"/>
+    </linearGradient>
+
+    <!-- Arrow Connectors Gradient -->
+    <linearGradient id="arrow-grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF007A"/>
+      <stop offset="100%" stop-color="#38BDF8"/>
+    </linearGradient>
+    <linearGradient id="arrow-grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#A855F7"/>
+    </linearGradient>
+    <linearGradient id="arrow-grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#10B981"/>
+    </linearGradient>
+
+    <!-- Card Background Gradient -->
+    <linearGradient id="step-card-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0F172A" stop-opacity="0.95"/>
+    </linearGradient>
+
+    <!-- Dot Pattern -->
+    <pattern id="arch-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#334155" opacity="0.3"/>
+    </pattern>
+
+    <!-- InAppStory Star Logo Gradients -->
+    <linearGradient id="arch-star-g0" x1="0" y1="0" x2="22.08" y2="20.85" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF007A"/>
+      <stop offset="1" stop-color="#7928CA"/>
+    </linearGradient>
+    <linearGradient id="arch-star-g1" x1="28.42" y1="36.43" x2="50.5" y2="57.28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7928CA"/>
+      <stop offset="1" stop-color="#00DFD8"/>
+    </linearGradient>
+    <linearGradient id="arch-star-g2" x1="0" y1="34.43" x2="22.08" y2="57.28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF007A"/>
+      <stop offset="1" stop-color="#00DFD8"/>
+    </linearGradient>
+    <linearGradient id="arch-star-g3" x1="28.42" y1="0" x2="50.5" y2="22.85" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF007A"/>
+      <stop offset="1" stop-color="#7928CA"/>
+    </linearGradient>
+    <linearGradient id="arch-star-g4" x1="17.35" y1="12.29" x2="33.15" y2="28.64" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF007A"/>
+      <stop offset="1" stop-color="#7928CA"/>
+    </linearGradient>
+  </defs>
+
+  <style>
+    .arch-label { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 800; font-size: 13px; fill: #38BDF8; letter-spacing: 1.5px; }
+    .arch-card-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; font-size: 15px; fill: #F8FAFC; }
+    .arch-card-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 400; font-size: 12px; fill: #94A3B8; }
+    .code-text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; }
+  </style>
+
+  <!-- Container Box -->
+  <rect width="1200" height="260" rx="16" fill="url(#bg-arch)" stroke="#1E293B" stroke-width="1.5"/>
+  <rect width="1200" height="260" rx="16" fill="url(#arch-dots)"/>
+
+  <!-- Top Accent Bar -->
+  <rect x="0" y="0" width="1200" height="3" rx="1.5" fill="url(#arrow-grad1)"/>
+
+  <!-- Main Workflow Group -->
+  <g transform="translate(45, 30)">
+    <!-- Header with Star Icon -->
+    <g transform="translate(0, 0)">
+      <g transform="translate(0, -2) scale(0.4)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9818 20.8504C7.79442 22.8465 0 20.2195 0 20.2195C0 20.2195 5.58622 16.5925 7.58157 11.4031C9.57692 6.21374 7.6477 0 7.6477 0C7.6477 0 12.5028 4.31682 14.4982 9.50622C16.4935 14.6956 22.0797 18.3226 22.0797 18.3226C22.0797 18.3226 18.1692 18.8543 12.9818 20.8504Z" fill="url(#arch-star-g0)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M37.5218 36.4251C42.7092 34.429 50.5036 37.056 50.5036 37.056C50.5036 37.056 44.9174 40.683 42.922 45.8724C40.9267 51.0618 42.8559 57.2755 42.8559 57.2755C42.8559 57.2755 38.0008 52.9587 36.0054 47.7693C34.0101 42.5799 28.4239 38.9529 28.4239 38.9529C28.4239 38.9529 32.3344 38.4212 37.5218 36.4251Z" fill="url(#arch-star-g1)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9818 36.4251C18.1692 38.4212 22.0797 38.9529 22.0797 38.9529C22.0797 38.9529 16.4935 42.5799 14.4982 47.7693C12.5028 52.9587 7.6477 57.2755 7.6477 57.2755C7.6477 57.2755 9.57692 51.0618 7.58157 45.8724C5.58622 40.683 0 37.056 0 37.056C0 37.056 7.79442 34.429 12.9818 36.4251Z" fill="url(#arch-star-g2)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M37.5218 20.8504C32.3344 18.8543 28.4239 18.3226 28.4239 18.3226C28.4239 18.3226 34.0101 14.6956 36.0054 9.50622C38.0008 4.31682 42.8559 0 42.8559 0C42.8559 0 40.9267 6.21374 42.922 11.4031C44.9174 16.5925 50.5036 20.2195 50.5036 20.2195C50.5036 20.2195 42.7092 22.8465 37.5218 20.8504Z" fill="url(#arch-star-g3)"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.2518 28.6378C29.6108 28.6378 33.1499 24.9786 33.1499 20.4646C33.1499 15.9506 29.6108 12.2913 25.2518 12.2913C20.8928 12.2913 17.3538 15.9506 17.3538 20.4646C17.3538 24.9786 20.8928 28.6378 25.2518 28.6378Z" fill="url(#arch-star-g4)"/>
+      </g>
+      <text x="28" y="14" class="arch-label">HOW EACH SKILL WORKS — DUAL-LAYER ARCHITECTURE</text>
+    </g>
+
+    <!-- Step 1: User Prompt -->
+    <g transform="translate(0, 32)">
+      <rect width="235" height="145" rx="12" fill="url(#step-card-bg)" stroke="#FF007A" stroke-opacity="0.4" stroke-width="1"/>
+      <circle cx="32" cy="32" r="15" fill="#FF007A" fill-opacity="0.2"/>
+      <text x="32" y="37" text-anchor="middle" fill="#FF007A" font-weight="800" font-size="13">1</text>
+      <text x="56" y="37" class="arch-card-title">User Prompt</text>
+
+      <rect x="14" y="60" width="207" height="68" rx="8" fill="#070A12" stroke="#1E293B" stroke-width="1"/>
+      <text x="24" y="83" class="code-text" fill="#94A3B8">"How do I setup</text>
+      <text x="24" y="101" class="code-text" fill="#FF007A"> onboardings on iOS?"</text>
+      <text x="24" y="117" class="code-text" fill="#64748B">Agent auto-triggers skill</text>
+    </g>
+
+    <!-- Connector 1 -> 2 -->
+    <g transform="translate(235, 104)">
+      <path d="M5 0 H35" stroke="url(#arrow-grad1)" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="33,-5 43,0 33,5" fill="#38BDF8"/>
+    </g>
+
+    <!-- Step 2: Live Router -->
+    <g transform="translate(283, 32)">
+      <rect width="245" height="145" rx="12" fill="url(#step-card-bg)" stroke="#38BDF8" stroke-opacity="0.5" stroke-width="1"/>
+      <circle cx="32" cy="32" r="15" fill="#38BDF8" fill-opacity="0.2"/>
+      <text x="32" y="37" text-anchor="middle" fill="#38BDF8" font-weight="800" font-size="13">2</text>
+      <text x="56" y="37" class="arch-card-title">Live Router (`SKILL.md`)</text>
+
+      <text x="16" y="70" class="arch-card-sub">• Maps topic to docs URL</text>
+      <text x="16" y="92" class="arch-card-sub">• Fetches docs.inappstory.com</text>
+      <text x="16" y="114" class="arch-card-sub">• On-demand live page lookup</text>
+      <text x="16" y="136" class="arch-card-sub" fill="#38BDF8" font-weight="700">✓ Always fresh docs</text>
+    </g>
+
+    <!-- Connector 2 -> 3 -->
+    <g transform="translate(528, 104)">
+      <path d="M5 0 H35" stroke="url(#arrow-grad2)" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="33,-5 43,0 33,5" fill="#A855F7"/>
+    </g>
+
+    <!-- Step 3: Judgment Layer -->
+    <g transform="translate(576, 32)">
+      <rect width="250" height="145" rx="12" fill="url(#step-card-bg)" stroke="#A855F7" stroke-opacity="0.5" stroke-width="1"/>
+      <circle cx="32" cy="32" r="15" fill="#A855F7" fill-opacity="0.2"/>
+      <text x="32" y="37" text-anchor="middle" fill="#A855F7" font-weight="800" font-size="13">3</text>
+      <text x="56" y="37" class="arch-card-title">Judgment Layer</text>
+
+      <text x="16" y="70" class="arch-card-sub">• `playbooks.md`: Task recipes</text>
+      <text x="16" y="92" class="arch-card-sub">• `pitfalls.md`: Version gotchas</text>
+      <text x="16" y="114" class="arch-card-sub">• `decisions.md`: Trade-offs</text>
+      <text x="16" y="136" class="arch-card-sub" fill="#A855F7" font-weight="700">⚡ Prevents SDK traps</text>
+    </g>
+
+    <!-- Connector 3 -> 4 -->
+    <g transform="translate(826, 104)">
+      <path d="M5 0 H35" stroke="url(#arrow-grad3)" stroke-width="2.5" stroke-linecap="round"/>
+      <polygon points="33,-5 43,0 33,5" fill="#10B981"/>
+    </g>
+
+    <!-- Step 4: Flawless Production Code -->
+    <g transform="translate(874, 32)">
+      <rect width="236" height="145" rx="12" fill="url(#step-card-bg)" stroke="#10B981" stroke-opacity="0.5" stroke-width="1"/>
+      <circle cx="32" cy="32" r="15" fill="#10B981" fill-opacity="0.2"/>
+      <text x="32" y="37" text-anchor="middle" fill="#10B981" font-weight="800" font-size="13">4</text>
+      <text x="56" y="37" class="arch-card-title">Production Code</text>
+
+      <rect x="14" y="60" width="208" height="68" rx="8" fill="#070A12" stroke="#1E293B" stroke-width="1"/>
+      <text x="24" y="83" class="code-text" fill="#10B981">✓ Version-matched SDK</text>
+      <text x="24" y="101" class="code-text" fill="#E2E8F0">✓ Flawless integration</text>
+      <text x="24" y="117" class="code-text" fill="#38BDF8">✓ Zero drift code</text>
+    </g>
+  </g>
+</svg>
