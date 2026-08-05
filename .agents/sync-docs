@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+# Detect documentation drift for the inappstory-* skills. READ-ONLY by default.
+#
+# Reports, per platform:
+#   +  new topics    — a doc page exists that the skill's index doesn't list
+#   -  dead links    — the skill index points at a page that's gone/renamed
+#   ~  content moved  — a page's content changed since the saved baseline
+#                       (signal: the judgment layer for that topic may be stale)
+#
+# What it does NOT do: rewrite the curated index or the judgment files. Distilling
+# a new migrations/API into pitfalls/playbooks is an LLM step, not something a
+# script can do honestly. This tool tells you WHAT changed so you know what to
+# refresh (then re-run with --save to accept the new baseline).
+#
+# Usage:
+#   .agents/sync-docs               # report drift vs saved baseline
+#   .agents/sync-docs --pull        # git pull the docs repo first, then report
+#   .agents/sync-docs --save        # accept current docs as the new baseline
+#   IAS_DOCS=/path/to/docs .agents/sync-docs
+#
+# Exits non-zero when drift is found (so CI can gate on it).
+#
+# ponytail: detector, not regenerator. Runtime-fetch already keeps page *content*
+# fresh; the only real staleness is the index (auto-detectable) and the judgment
+# layer (needs a human/LLM pass). This flags both; it writes neither.
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+docs="${IAS_DOCS:-$root/../in-app-stories-docs/docs}"
+skills_dir="$root/.agents/shared/skills"
+state="$root/.agents/sync-docs.state"
+
+pull=0; save=0
+for a in "$@"; do
+  case "$a" in
+    --pull) pull=1;;
+    --save) save=1;;
+    *) echo "unknown arg: $a" >&2; exit 2;;
+  esac
+done
+
+[ -d "$docs/sdk-guides" ] || {
+  echo "docs not found at: $docs" >&2
+  echo "point IAS_DOCS at your in-app-stories-docs/docs checkout." >&2
+  exit 2
+}
+
+if (( pull )); then
+  echo "pulling docs…"; git -C "$docs/.." pull --ff-only
+fi
+
+# skill name -> docs subdir (react/js paths differ from the skill name).
+# A function, not an assoc array — macOS ships bash 3.2, which has no `declare -A`.
+subdir_for() {
+  case "$1" in
+    react) echo react-sdk;;
+    js)    echo js-sdk;;
+    *)     echo "$1";;
+  esac
+}
+# pages the skills intentionally leave out of the index
+exclude_re='^(changelog|bug-report|events-old)$'
+
+newstate="$(mktemp)"
+drift=0
+
+for plat in android ios flutter react-native react js; do
+  sub="$(subdir_for "$plat")"
+  d="$docs/sdk-guides/$sub"
+  skill="$skills_dir/inappstory-$plat/SKILL.md"
+  [ -d "$d" ] && [ -f "$skill" ] || { echo "skip $plat (missing docs or skill)"; continue; }
+
+  disk="$(find "$d" -maxdepth 1 -type f \( -name '*.md' -o -name '*.mdx' \) -exec basename {} \; \
+          | sed -E 's/\.(md|mdx)$//' | grep -Ev "$exclude_re" | sort -u)"
+  inskill="$(grep -oE "sdk-guides/$sub/[a-zA-Z0-9-]+" "$skill" \
+             | sed -E 's#.*/##' | sort -u)"
+
+  added="$(comm -23 <(printf '%s\n' "$disk") <(printf '%s\n' "$inskill") | grep -v '^$' || true)"
+  removed="$(comm -13 <(printf '%s\n' "$disk") <(printf '%s\n' "$inskill") | grep -v '^$' || true)"
+
+  changed=""
+  while read -r t; do
+    [ -n "$t" ] || continue
+    f="$d/$t.md"; [ -f "$f" ] || f="$d/$t.mdx"
+    h="$(shasum -a 256 "$f" | cut -d' ' -f1)"
+    printf '%s/%s\t%s\n' "$plat" "$t" "$h" >> "$newstate"
+    if [ -f "$state" ]; then
+      old="$(awk -v k="$plat/$t" -F'\t' '$1==k{print $2}' "$state")"
+      [ -n "$old" ] && [ "$old" != "$h" ] && changed="$changed $t"
+    fi
+  done <<< "$disk"
+
+  if [ -n "$added$removed$changed" ]; then
+    drift=1
+    echo "── inappstory-$plat ──"
+    [ -n "$added" ]   && echo "  + new topics (add to index):          $(echo $added)"
+    [ -n "$removed" ] && echo "  - dead links (remove/rename in index): $(echo $removed)"
+    [ -n "$changed" ] && echo "  ~ content changed (recheck judgment):  $(echo $changed)"
+  fi
+done
+
+if (( save )); then
+  sort "$newstate" -o "$state"
+  echo "baseline saved -> $state"
+fi
+rm -f "$newstate"
+
+if (( drift )) && (( ! save )); then
+  echo
+  echo "drift found. Fix the index / refresh the judgment layer for the topics above,"
+  echo "then re-run with --save to accept the new baseline."
+  exit 1
+fi
+echo "ok: no drift (skills match the docs checkout)."

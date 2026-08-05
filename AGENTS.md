@@ -32,6 +32,27 @@ CLAUDE.md, .claude/, .codex/   # GENERATED, gitignored — do not edit
 - Skills are grounded in the IAS SDK docs (<https://git.kiozk.ru/story/docs.git>).
   Don't invent SDK behavior — cite the docs.
 
+## Updating skills on a docs release
+
+The `inappstory-*` skills fetch page **content** live from
+`docs.inappstory.com`, so content never goes stale. Two things can drift, and
+`.agents/sync-docs` detects both against a saved baseline (`.agents/sync-docs.state`):
+
+```bash
+.agents/sync-docs          # report drift (exit 1 if any)
+.agents/sync-docs --pull   # git pull the docs repo first, then report
+.agents/sync-docs --save   # accept the current docs as the new baseline
+IAS_DOCS=/path/to/in-app-stories-docs/docs .agents/sync-docs
+```
+
+It reports, per platform: `+` new topic pages missing from a skill's index,
+`-` dead links to removed/renamed pages, and `~` pages whose content changed
+(a signal that that topic's **judgment layer** — `pitfalls/playbooks/decisions.md`
+— may need a refresh). It is read-only: it never rewrites the curated index or
+the judgment files. Refreshing those is an LLM pass (re-run the skill against the
+new page), which a script can't do honestly. Workflow on a docs release:
+`--pull` → read the report → fix the flagged index/judgment → `--save`.
+
 ## Bootstrap
 
 Fresh clone, once:
