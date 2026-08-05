@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" width="100%" height="auto" role="img" aria-labelledby="arch-title arch-desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 270" width="100%" height="auto" role="img" aria-labelledby="arch-title arch-desc">
   <title id="arch-title">How Each Skill Works - Router and Judgment Layer Architecture</title>
   <desc id="arch-desc">4-step architecture diagram: User Prompt -> Live Router -> Judgment Layer -> Production Code.</desc>
 
@@ -10,7 +10,7 @@
       <stop offset="100%" stop-color="#070A12"/>
     </linearGradient>
 
-    <!-- Arrow Connectors Gradient -->
+    <!-- Connectors Gradients -->
     <linearGradient id="arrow-grad1" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#FF007A"/>
       <stop offset="100%" stop-color="#38BDF8"/>
@@ -32,7 +32,7 @@
 
     <!-- Dot Pattern -->
     <pattern id="arch-dots" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="1" fill="#334155" opacity="0.3"/>
+      <circle cx="2" cy="2" r="1" fill="#334155" opacity="0.35"/>
     </pattern>
 
     <!-- InAppStory Star Logo Gradients -->
@@ -63,20 +63,21 @@
     .arch-card-title { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 700; font-size: 15px; fill: #F8FAFC; }
     .arch-card-sub { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-weight: 400; font-size: 12px; fill: #94A3B8; }
     .code-text { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 11px; }
+    .pill-tag { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 10px; font-weight: 600; }
   </style>
 
   <!-- Container Box -->
-  <rect width="1200" height="260" rx="16" fill="url(#bg-arch)" stroke="#1E293B" stroke-width="1.5"/>
-  <rect width="1200" height="260" rx="16" fill="url(#arch-dots)"/>
+  <rect width="1200" height="270" rx="16" fill="url(#bg-arch)" stroke="#1E293B" stroke-width="1.5"/>
+  <rect width="1200" height="270" rx="16" fill="url(#arch-dots)"/>
 
   <!-- Top Accent Bar -->
-  <rect x="0" y="0" width="1200" height="3" rx="1.5" fill="url(#arrow-grad1)"/>
+  <rect x="0" y="0" width="1200" height="3.5" rx="1.75" fill="url(#arrow-grad1)"/>
 
   <!-- Main Workflow Group -->
-  <g transform="translate(45, 30)">
-    <!-- Header with Star Icon -->
+  <g transform="translate(45, 28)">
+    <!-- Header with Official InAppStory Star Emblem -->
     <g transform="translate(0, 0)">
-      <g transform="translate(0, -2) scale(0.4)">
+      <g transform="translate(0, -2) scale(0.42)">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9818 20.8504C7.79442 22.8465 0 20.2195 0 20.2195C0 20.2195 5.58622 16.5925 7.58157 11.4031C9.57692 6.21374 7.6477 0 7.6477 0C7.6477 0 12.5028 4.31682 14.4982 9.50622C16.4935 14.6956 22.0797 18.3226 22.0797 18.3226C22.0797 18.3226 18.1692 18.8543 12.9818 20.8504Z" fill="url(#arch-star-g0)"/>
         <path fill-rule="evenodd" clip-rule="evenodd" d="M37.5218 36.4251C42.7092 34.429 50.5036 37.056 50.5036 37.056C50.5036 37.056 44.9174 40.683 42.922 45.8724C40.9267 51.0618 42.8559 57.2755 42.8559 57.2755C42.8559 57.2755 38.0008 52.9587 36.0054 47.7693C34.0101 42.5799 28.4239 38.9529 28.4239 38.9529C28.4239 38.9529 32.3344 38.4212 37.5218 36.4251Z" fill="url(#arch-star-g1)"/>
         <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9818 36.4251C18.1692 38.4212 22.0797 38.9529 22.0797 38.9529C22.0797 38.9529 16.4935 42.5799 14.4982 47.7693C12.5028 52.9587 7.6477 57.2755 7.6477 57.2755C7.6477 57.2755 9.57692 51.0618 7.58157 45.8724C5.58622 40.683 0 37.056 0 37.056C0 37.056 7.79442 34.429 12.9818 36.4251Z" fill="url(#arch-star-g2)"/>
@@ -87,73 +88,87 @@
     </g>
 
     <!-- Step 1: User Prompt -->
-    <g transform="translate(0, 32)">
-      <rect width="235" height="145" rx="12" fill="url(#step-card-bg)" stroke="#FF007A" stroke-opacity="0.4" stroke-width="1"/>
+    <g transform="translate(0, 34)">
+      <rect width="235" height="150" rx="12" fill="url(#step-card-bg)" stroke="#FF007A" stroke-opacity="0.4" stroke-width="1"/>
       <circle cx="32" cy="32" r="15" fill="#FF007A" fill-opacity="0.2"/>
       <text x="32" y="37" text-anchor="middle" fill="#FF007A" font-weight="800" font-size="13">1</text>
       <text x="56" y="37" class="arch-card-title">User Prompt</text>
 
-      <rect x="14" y="60" width="207" height="68" rx="8" fill="#070A12" stroke="#1E293B" stroke-width="1"/>
-      <text x="24" y="83" class="code-text" fill="#94A3B8">"How do I setup</text>
-      <text x="24" y="101" class="code-text" fill="#FF007A"> onboardings on iOS?"</text>
-      <text x="24" y="117" class="code-text" fill="#64748B">Agent auto-triggers skill</text>
+      <rect x="14" y="62" width="207" height="72" rx="8" fill="#070A12" stroke="#1E293B" stroke-width="1"/>
+      <text x="24" y="86" class="code-text" fill="#94A3B8">"How do I setup</text>
+      <text x="24" y="104" class="code-text" fill="#FF007A"> onboardings on iOS?"</text>
+      <text x="24" y="122" class="code-text" fill="#64748B">⚡ Agent auto-activates skill</text>
     </g>
 
     <!-- Connector 1 -> 2 -->
-    <g transform="translate(235, 104)">
+    <g transform="translate(235, 109)">
       <path d="M5 0 H35" stroke="url(#arrow-grad1)" stroke-width="2.5" stroke-linecap="round"/>
       <polygon points="33,-5 43,0 33,5" fill="#38BDF8"/>
     </g>
 
     <!-- Step 2: Live Router -->
-    <g transform="translate(283, 32)">
-      <rect width="245" height="145" rx="12" fill="url(#step-card-bg)" stroke="#38BDF8" stroke-opacity="0.5" stroke-width="1"/>
+    <g transform="translate(283, 34)">
+      <rect width="245" height="150" rx="12" fill="url(#step-card-bg)" stroke="#38BDF8" stroke-opacity="0.5" stroke-width="1"/>
       <circle cx="32" cy="32" r="15" fill="#38BDF8" fill-opacity="0.2"/>
       <text x="32" y="37" text-anchor="middle" fill="#38BDF8" font-weight="800" font-size="13">2</text>
       <text x="56" y="37" class="arch-card-title">Live Router (`SKILL.md`)</text>
 
-      <text x="16" y="70" class="arch-card-sub">• Maps topic to docs URL</text>
-      <text x="16" y="92" class="arch-card-sub">• Fetches docs.inappstory.com</text>
-      <text x="16" y="114" class="arch-card-sub">• On-demand live page lookup</text>
-      <text x="16" y="136" class="arch-card-sub" fill="#38BDF8" font-weight="700">✓ Always fresh docs</text>
+      <g transform="translate(16, 62)">
+        <!-- Pill Tag 1 -->
+        <rect x="0" y="0" width="213" height="22" rx="4" fill="#38BDF8" fill-opacity="0.1" stroke="#38BDF8" stroke-opacity="0.25" stroke-width="1"/>
+        <text x="10" y="15" class="pill-tag" fill="#38BDF8">🌐 Topic → docs.inappstory.com</text>
+
+        <!-- Bullet 2 -->
+        <text x="4" y="40" class="arch-card-sub">• Live HTTP fetch on demand</text>
+        <!-- Bullet 3 -->
+        <text x="4" y="58" class="arch-card-sub" fill="#38BDF8" font-weight="700">✓ Zero stale documentation</text>
+      </g>
     </g>
 
     <!-- Connector 2 -> 3 -->
-    <g transform="translate(528, 104)">
+    <g transform="translate(528, 109)">
       <path d="M5 0 H35" stroke="url(#arrow-grad2)" stroke-width="2.5" stroke-linecap="round"/>
       <polygon points="33,-5 43,0 33,5" fill="#A855F7"/>
     </g>
 
     <!-- Step 3: Judgment Layer -->
-    <g transform="translate(576, 32)">
-      <rect width="250" height="145" rx="12" fill="url(#step-card-bg)" stroke="#A855F7" stroke-opacity="0.5" stroke-width="1"/>
+    <g transform="translate(576, 34)">
+      <rect width="250" height="150" rx="12" fill="url(#step-card-bg)" stroke="#A855F7" stroke-opacity="0.5" stroke-width="1"/>
       <circle cx="32" cy="32" r="15" fill="#A855F7" fill-opacity="0.2"/>
       <text x="32" y="37" text-anchor="middle" fill="#A855F7" font-weight="800" font-size="13">3</text>
       <text x="56" y="37" class="arch-card-title">Judgment Layer</text>
 
-      <text x="16" y="70" class="arch-card-sub">• `playbooks.md`: Task recipes</text>
-      <text x="16" y="92" class="arch-card-sub">• `pitfalls.md`: Version gotchas</text>
-      <text x="16" y="114" class="arch-card-sub">• `decisions.md`: Trade-offs</text>
-      <text x="16" y="136" class="arch-card-sub" fill="#A855F7" font-weight="700">⚡ Prevents SDK traps</text>
+      <g transform="translate(16, 62)">
+        <rect x="0" y="0" width="95" height="20" rx="4" fill="#A855F7" fill-opacity="0.15"/>
+        <text x="8" y="14" class="pill-tag" fill="#C084FC">playbooks.md</text>
+
+        <rect x="103" y="0" width="78" height="20" rx="4" fill="#A855F7" fill-opacity="0.15"/>
+        <text x="111" y="14" class="pill-tag" fill="#C084FC">pitfalls.md</text>
+
+        <rect x="0" y="26" width="92" height="20" rx="4" fill="#A855F7" fill-opacity="0.15"/>
+        <text x="8" y="40" class="pill-tag" fill="#C084FC">decisions.md</text>
+
+        <text x="4" y="66" class="arch-card-sub" fill="#A855F7" font-weight="700">⚡ Prevents SDK version traps</text>
+      </g>
     </g>
 
     <!-- Connector 3 -> 4 -->
-    <g transform="translate(826, 104)">
+    <g transform="translate(826, 109)">
       <path d="M5 0 H35" stroke="url(#arrow-grad3)" stroke-width="2.5" stroke-linecap="round"/>
       <polygon points="33,-5 43,0 33,5" fill="#10B981"/>
     </g>
 
-    <!-- Step 4: Flawless Production Code -->
-    <g transform="translate(874, 32)">
-      <rect width="236" height="145" rx="12" fill="url(#step-card-bg)" stroke="#10B981" stroke-opacity="0.5" stroke-width="1"/>
+    <!-- Step 4: Production Code -->
+    <g transform="translate(874, 34)">
+      <rect width="236" height="150" rx="12" fill="url(#step-card-bg)" stroke="#10B981" stroke-opacity="0.5" stroke-width="1"/>
       <circle cx="32" cy="32" r="15" fill="#10B981" fill-opacity="0.2"/>
       <text x="32" y="37" text-anchor="middle" fill="#10B981" font-weight="800" font-size="13">4</text>
       <text x="56" y="37" class="arch-card-title">Production Code</text>
 
-      <rect x="14" y="60" width="208" height="68" rx="8" fill="#070A12" stroke="#1E293B" stroke-width="1"/>
-      <text x="24" y="83" class="code-text" fill="#10B981">✓ Version-matched SDK</text>
-      <text x="24" y="101" class="code-text" fill="#E2E8F0">✓ Flawless integration</text>
-      <text x="24" y="117" class="code-text" fill="#38BDF8">✓ Zero drift code</text>
+      <rect x="14" y="62" width="208" height="72" rx="8" fill="#070A12" stroke="#1E293B" stroke-width="1"/>
+      <text x="24" y="86" class="code-text" fill="#10B981">✓ Version-matched SDK</text>
+      <text x="24" y="104" class="code-text" fill="#E2E8F0">✓ Flawless integration</text>
+      <text x="24" y="122" class="code-text" fill="#38BDF8">✓ Zero drift output</text>
     </g>
   </g>
 </svg>
