@@ -19,7 +19,6 @@ skills/inappstory-<platform>/   # the product — one skill per platform
   playbooks.md pitfalls.md decisions.md   # curated judgment layer
 .claude-plugin/                 # Claude Code plugin + marketplace manifests
 scripts/sync-docs               # maintainer tool: detect docs drift
-tools/book-to-skill/            # vendored authoring tool (not shipped)
 AGENTS.md  CLAUDE.md  README.md
 ```
 
