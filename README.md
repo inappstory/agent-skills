@@ -75,6 +75,16 @@ npx skills add ./ias-agent-skills/skills --skill '*' --agent '*' -y
 Pass the archive as a **folder**, not a `.zip` — unzip it first (`unzip ias-agent-skills.zip`),
 then point `skills add` at the extracted `skills/` directory.
 
+#### 🔄 Updating & Pinning a Version
+`skills` records the source in `skills-lock.json`, so pulling the latest is just:
+```bash
+npx skills update            # re-fetches the latest and reinstalls
+```
+To pin a specific release instead of tracking latest, append a git tag with `#`:
+```bash
+npx skills add https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git#v0.1.0 --skill '*'
+```
+
 #### 🧩 Claude Code Plugin
 ```bash
 /plugin marketplace add https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git
@@ -121,6 +131,15 @@ scripts/sync-docs --save
 ```
 
 `sync-docs` automatically detects missing topic links, deleted pages, and content updates so maintainers can keep the judgment layer pristine. See [`AGENTS.md`](AGENTS.md) for full maintainer instructions.
+
+### Cutting a Release
+
+Version lives in [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and each release is a matching `vX.Y.Z` git tag — the one number both the Claude Code plugin manager and `npx skills ...#tag` pinning read. Add a [`CHANGELOG.md`](CHANGELOG.md) entry, commit it, then:
+
+```bash
+scripts/release 0.2.0        # bumps plugin.json, commits, tags v0.2.0
+git push && git push origin v0.2.0
+```
 
 ---
 
