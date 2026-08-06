@@ -50,29 +50,22 @@ Each skill combines a **Live Documentation Router** with a **Curated Judgment La
 Install all six skills into your AI agent environment (`~/.agents/skills`, `~/.claude/skills`, `~/.codex/skills`, `~/.cursor/skills`):
 
 ```bash
-npx skills add https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git --skill '*'
+npx skills add https://github.com/inappstory/agent-skills --skill '*'
 ```
-
-> The `.git` suffix is required — without it the `skills` CLI treats the URL as a
-> registry endpoint instead of a git repo. This method clones over HTTPS, so it
-> needs git credentials for the host (the CLI runs git non-interactively and
-> can't prompt). No credentials configured? Use the **Offline / No-Auth** method below.
 
 <details>
 <summary><b>📦 Alternative Installation Methods</b></summary>
 
 <br>
 
-#### 📁 Offline / No-Auth (local folder)
-No credentials for the CLI required. Get the repo as a folder (clone once with your
-normal git, which *can* prompt for auth — or unzip an archive of it), then install
-from that folder. `skills add <folder>` needs no network and no auth, and targets any
-agent (`cursor`, `claude-code`, …):
+#### 📁 Offline / Local folder
+Install from a folder instead of the network — handy for air-gapped setups or a
+private fork. `skills add <folder>` targets any agent (`cursor`, `claude-code`, …):
 ```bash
-git clone https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git
-npx skills add ./ias-agent-skills/skills --skill '*' --agent '*' -y
+git clone https://github.com/inappstory/agent-skills.git
+npx skills add ./agent-skills/skills --skill '*' --agent '*' -y
 ```
-Pass the archive as a **folder**, not a `.zip` — unzip it first (`unzip ias-agent-skills.zip`),
+Pass the archive as a **folder**, not a `.zip` — unzip it first (`unzip agent-skills.zip`),
 then point `skills add` at the extracted `skills/` directory.
 
 #### 🔄 Updating & Pinning a Version
@@ -82,26 +75,26 @@ npx skills update            # re-fetches the latest and reinstalls
 ```
 To pin a specific release instead of tracking latest, append a git tag with `#`:
 ```bash
-npx skills add https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git#v0.1.0 --skill '*'
+npx skills add https://github.com/inappstory/agent-skills#v0.1.0 --skill '*'
 ```
 
 #### 🧩 Claude Code Plugin
 ```bash
-/plugin marketplace add https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git
+/plugin marketplace add https://github.com/inappstory/agent-skills.git
 /plugin install inappstory@ias-agent-skills
 ```
 
 #### 🚀 Antigravity / AGY CLI
 Clone the repository and copy the skills to your local `.agents` directory:
 ```bash
-git clone https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git
-cp -R ias-agent-skills/skills/inappstory-* ~/.agents/skills/
+git clone https://github.com/inappstory/agent-skills.git
+cp -R agent-skills/skills/inappstory-* ~/.agents/skills/
 ```
 
 #### 🔗 Manual Symlink
 ```bash
-git clone https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git
-ln -s $(pwd)/ias-agent-skills/skills/inappstory-* ~/.agents/skills/
+git clone https://github.com/inappstory/agent-skills.git
+ln -s $(pwd)/agent-skills/skills/inappstory-* ~/.agents/skills/
 ```
 
 </details>
