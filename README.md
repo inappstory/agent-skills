@@ -50,13 +50,30 @@ Each skill combines a **Live Documentation Router** with a **Curated Judgment La
 Install all six skills into your AI agent environment (`~/.agents/skills`, `~/.claude/skills`, `~/.codex/skills`, `~/.cursor/skills`):
 
 ```bash
-npx skills add https://git.kiozk.ru/alexander.sungurov/ias-agent-skills --skill '*'
+npx skills add https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git --skill '*'
 ```
+
+> The `.git` suffix is required — without it the `skills` CLI treats the URL as a
+> registry endpoint instead of a git repo. This method clones over HTTPS, so it
+> needs git credentials for the host (the CLI runs git non-interactively and
+> can't prompt). No credentials configured? Use the **Offline / No-Auth** method below.
 
 <details>
 <summary><b>📦 Alternative Installation Methods</b></summary>
 
 <br>
+
+#### 📁 Offline / No-Auth (local folder)
+No credentials for the CLI required. Get the repo as a folder (clone once with your
+normal git, which *can* prompt for auth — or unzip an archive of it), then install
+from that folder. `skills add <folder>` needs no network and no auth, and targets any
+agent (`cursor`, `claude-code`, …):
+```bash
+git clone https://git.kiozk.ru/alexander.sungurov/ias-agent-skills.git
+npx skills add ./ias-agent-skills/skills --skill '*' --agent '*' -y
+```
+Pass the archive as a **folder**, not a `.zip` — unzip it first (`unzip ias-agent-skills.zip`),
+then point `skills add` at the extracted `skills/` directory.
 
 #### 🧩 Claude Code Plugin
 ```bash
