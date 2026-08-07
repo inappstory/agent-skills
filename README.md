@@ -47,18 +47,41 @@ Each skill combines a **Live Documentation Router** with a **Curated Judgment La
 
 ## 🚀 Quick Installation
 
-Install all six skills into your AI agent environment (`~/.agents/skills`, `~/.claude/skills`, `~/.codex/skills`, `~/.cursor/skills`):
-
+#### 📦 Skills CLI — Claude Code · Codex · Cursor · 70+ agents
+One command installs all six skills into **every agent it detects** — Claude Code (`~/.claude/skills`), Codex (`~/.codex/skills`), Cursor (`~/.cursor/skills`), and more:
 ```bash
 npx skills add https://github.com/inappstory/agent-skills --skill '*'
 ```
+Target a single agent with `--agent` (e.g. `codex`, `claude-code`, `cursor`, `github-copilot`):
+```bash
+npx skills add https://github.com/inappstory/agent-skills --skill '*' --agent codex
+```
+
+#### 🧩 Claude Code — plugin
+```bash
+/plugin marketplace add https://github.com/inappstory/agent-skills.git
+/plugin install inappstory@ias-agent-skills
+```
+
+#### 🚀 Antigravity / AGY CLI
+Clone the repository and copy the skills into your local `.agents` directory:
+```bash
+git clone https://github.com/inappstory/agent-skills.git
+cp -R agent-skills/skills/inappstory-* ~/.agents/skills/
+```
 
 <details>
-<summary><b>📦 Alternative Installation Methods</b></summary>
+<summary><b>🔗 Manual & advanced</b></summary>
 
 <br>
 
-#### 📁 Offline / Local folder
+#### 🔗 Manual symlink
+```bash
+git clone https://github.com/inappstory/agent-skills.git
+ln -s $(pwd)/agent-skills/skills/inappstory-* ~/.agents/skills/
+```
+
+#### 📁 Offline / local folder
 Install from a folder instead of the network — handy for air-gapped setups or a
 private fork. `skills add <folder>` targets any agent (`cursor`, `claude-code`, …):
 ```bash
@@ -68,7 +91,7 @@ npx skills add ./agent-skills/skills --skill '*' --agent '*' -y
 Pass the archive as a **folder**, not a `.zip` — unzip it first (`unzip agent-skills.zip`),
 then point `skills add` at the extracted `skills/` directory.
 
-#### 🔄 Updating & Pinning a Version
+#### 🔄 Updating & pinning a version
 `skills` records the source in `skills-lock.json`, so pulling the latest is just:
 ```bash
 npx skills update            # re-fetches the latest and reinstalls
@@ -76,25 +99,6 @@ npx skills update            # re-fetches the latest and reinstalls
 To pin a specific release instead of tracking latest, append a git tag with `#`:
 ```bash
 npx skills add https://github.com/inappstory/agent-skills#v0.1.0 --skill '*'
-```
-
-#### 🧩 Claude Code Plugin
-```bash
-/plugin marketplace add https://github.com/inappstory/agent-skills.git
-/plugin install inappstory@ias-agent-skills
-```
-
-#### 🚀 Antigravity / AGY CLI
-Clone the repository and copy the skills to your local `.agents` directory:
-```bash
-git clone https://github.com/inappstory/agent-skills.git
-cp -R agent-skills/skills/inappstory-* ~/.agents/skills/
-```
-
-#### 🔗 Manual Symlink
-```bash
-git clone https://github.com/inappstory/agent-skills.git
-ln -s $(pwd)/agent-skills/skills/inappstory-* ~/.agents/skills/
 ```
 
 </details>
