@@ -4,6 +4,10 @@ Recipes across pages. Package `@inappstory/react-native-sdk` (0.x). Verify the
 version in `package.json`; read [pitfalls](pitfalls.md) — native host setup is the
 usual failure point.
 
+Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
+request (*where* / *which* feature), and on a first integration ask the user for
+their integration key (`apiKey`).
+
 ## Add stories (first-time integration)
 
 1. **Install:** `npm install @inappstory/react-native-sdk` (or yarn).

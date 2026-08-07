@@ -40,6 +40,18 @@ what will bite me, which option to pick" — synthesis across pages:
 - **[decisions.md](decisions.md)** — decision guides (UIKit vs SwiftUI, which
   action API by version, which content entry point, IAM version).
 
+## Intake — ask before you write
+
+Two quick checks before any integration work:
+
+1. **Underspecified request? Ask, don't guess.** If the user didn't say *where*
+   the UI goes (which screen / view controller / SwiftUI view) or *which* feature
+   they mean, ask before writing — a feed on the wrong screen is wasted work.
+2. **First integration? Get the integration key.** If the codebase grep (below)
+   finds no existing IAS setup, this is a fresh integration: ask the user for their
+   **integration key** (`serviceKey`) — init fails without it. If a setup already
+   exists, reuse its key; don't ask.
+
 ## Before you answer or write integration code
 
 1. **Detect the framework — UIKit or SwiftUI.** They are *different SDKs* (module,

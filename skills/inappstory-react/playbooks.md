@@ -3,6 +3,10 @@
 Recipes across pages. Package `@inappstory/react-sdk`. Verify the version in
 `package.json`; read [pitfalls](pitfalls.md) alongside.
 
+Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
+request (*where* / *which* feature), and on a first integration ask the user for
+their integration key (`apiKey`).
+
 ## Add a stories list
 
 1. **Install:** `npm install @inappstory/react-sdk`.

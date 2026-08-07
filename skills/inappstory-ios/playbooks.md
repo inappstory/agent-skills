@@ -5,6 +5,10 @@ confirm which the app uses first (see [pitfalls](pitfalls.md)). Versions reflect
 ~1.29.x; verify against the app's actual tag. Fetch the linked page for exact,
 current signatures before writing the call.
 
+Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
+request (*where* / *which* feature), and on a first integration ask the user for
+their integration key (`serviceKey`).
+
 ## Add a stories list
 
 1. **Pick framework & install the matching dependency.**
