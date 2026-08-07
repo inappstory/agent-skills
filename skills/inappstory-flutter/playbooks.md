@@ -4,6 +4,10 @@ Recipes across pages. Plugin `inappstory_plugin` (0.x). Verify the version in
 `pubspec.yaml`; read [pitfalls](pitfalls.md) alongside — the native Android setup
 is the usual failure point.
 
+Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
+request (*where* / *which* feature), and on a first integration ask the user for
+their integration key (`apiKey`).
+
 ## Add a stories feed (first-time integration)
 
 1. **Add the dep:** `flutter pub add inappstory_plugin` (or pin in `pubspec.yaml`).

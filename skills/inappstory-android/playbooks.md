@@ -4,6 +4,10 @@ End-to-end recipes that span several doc pages. Each step lists the **exact call
 and the page to fetch for detail. Version notes reflect ~1.25.x — verify against
 the app's actual SDK version. Always read [pitfalls](pitfalls.md) alongside.
 
+Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
+request (*where* / *which* feature), and on a first integration ask the user for
+their integration key (`apiKey` / `csApiKey`).
+
 ## Add a stories feed (the list on a screen)
 
 1. **Gradle** — jitpack repo + `com.github.inappstory:android-sdk`, plus
