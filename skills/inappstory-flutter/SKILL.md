@@ -48,6 +48,11 @@ Two quick checks before any integration work:
    finds no existing IAS setup, this is a fresh integration: ask the user for their
    **integration key** (`apiKey`) — init fails without it. If a setup already
    exists, reuse its key; don't ask.
+3. **Verify it? Decide now (first integration only).** Offer to build & run the app
+   after wiring it up, so a first integration isn't left untried. Ask the depth —
+   smoke-run (build + launch, watch the feed load), also a minimal test, or skip —
+   batched with the questions above. A "yes" here is the go-ahead; don't re-ask
+   before running. See **Verify a first integration** below for how.
 
 ## Before you answer or write integration code
 
@@ -60,6 +65,23 @@ Two quick checks before any integration work:
 3. **Match the existing codebase** — reuse the app's Application class, where the
    apiKey lives, its manager wrapper. Extend, don't paste anew.
 4. **Then** fetch the topic page and write against the live API.
+
+## Verify a first integration
+
+Only if the user opted in at Intake — the "yes" there is the go-ahead, so run
+without re-asking. A first integration shouldn't be left untried.
+
+- **Smoke-run:** `flutter run` on a booted emulator/simulator (`flutter devices`
+  to confirm one). Watch the console for the feed's API call and cells appearing.
+  → [how-to-get-started](https://docs.inappstory.com/sdk-guides/flutter/how-to-get-started)
+- **Empty feed ≠ broken.** No cells can mean the integration is fine but the feed
+  slug is wrong, the `apiKey` has no published stories, or the user is filtered out
+  by tags. Confirm a successful API response in the console before assuming a bug.
+- **Automated test (only if the user asked for one):** a `flutter test` widget
+  smoke-check (the widget builds, no exception) is fine — don't assert on remote
+  content, the feed loads live data and any content assertion will be flaky.
+- **No emulator available?** Say so and give the user the exact run command; don't
+  claim a pass you didn't see.
 
 ## Topics
 

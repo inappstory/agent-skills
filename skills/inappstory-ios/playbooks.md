@@ -7,7 +7,8 @@ current signatures before writing the call.
 
 Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
 request (*where* / *which* feature), and on a first integration ask the user for
-their integration key (`serviceKey`).
+their integration key (`serviceKey`). After a first integration, offer to
+verify it runs (see **Verify a first integration** in SKILL.md).
 
 ## Add a stories list
 

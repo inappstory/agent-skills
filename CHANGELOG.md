@@ -6,6 +6,16 @@ and each release is tagged `vX.Y.Z` (cut with `scripts/release`).
 
 ## [Unreleased]
 
+## [0.3.0]
+
+- Extend the **Intake** step to offer post-integration verification: on a first
+  integration the agent now asks upfront (batched with the key / placement
+  questions) whether to build & run the app afterwards to confirm the feed loads,
+  and at what depth (smoke-run / optional smoke test / skip).
+- Add a **Verify a first integration** section to each `inappstory-*` skill with
+  the platform's run command, what to watch for, and the "empty feed ≠ broken"
+  caveat. Automated tests stay opt-in and smoke-only (no assertions on live content).
+
 ## [0.2.0]
 
 - Add a pre-integration **Intake** step to all six `inappstory-*` skills: the
