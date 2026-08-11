@@ -62,8 +62,13 @@ Two quick checks before any integration work:
 2. **Verify the native Android setup** — most "doesn't work on Android" reports are
    a missing `InAppStoryPlugin.initSDK` or `MainActivity` not extending
    `InAppStoryActivity`. Check these before debugging Dart.
-3. **Match the existing codebase** — reuse the app's Application class, where the
-   apiKey lives, its manager wrapper. Extend, don't paste anew.
+3. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `InAppStoryPlugin(` / `InAppStoryManager.instance` / `FeedStoriesWidget` and
+   `inappstory_plugin` in `pubspec.yaml`. **Found** → *extend* it: reuse the apiKey
+   location and the app's manager wrapper; emit a diff. **Not found** → *scaffold
+   minimally*: awaited `initWith`, plus the native `InAppStoryPlugin.initSDK` in
+   `Application` and `MainActivity : InAppStoryActivity`. Pin every API to the
+   detected version; return edits to real files, not a loose snippet — unless asked "how".
 4. **Then** fetch the topic page and write against the live API.
 
 ## Verify a first integration

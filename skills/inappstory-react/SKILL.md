@@ -59,9 +59,13 @@ Two quick checks before any integration work:
 1. **Check the package version** in `package.json` (`@inappstory/react-sdk`);
    if absent, ask. Config flags are version-gated (`options` v1.7.6, `anonymous`
    v3.6.6, `hybridApp` v1.14.0) — answer for that version.
-2. **Match the existing codebase** — reuse the app's options module, where the
-   apiKey/`StoryManagerConfig` lives, its `IASContainer` placement. Extend, don't
-   paste a second container.
+2. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `<IASContainer` / `StoryManagerConfig` / `StoryList` and `@inappstory/react-sdk`
+   in `package.json`. **Found** → *extend* it: reuse the options module, the apiKey
+   location, and the existing `IASContainer` (don't add a second one); emit a diff.
+   **Not found** → *scaffold minimally* in the app's conventions. Pin every API/flag
+   to the detected version; return edits to real files, not a loose snippet — unless
+   asked "how".
 3. **Then** fetch the topic page and write against the live API.
 
 ## Verify a first integration

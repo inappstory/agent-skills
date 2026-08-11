@@ -62,8 +62,13 @@ Two quick checks before any integration work:
 2. **Verify the native host setup** — iOS static frameworks, and Android
    `MainApplication.initSDK` / `MainActivity : InAppStoryActivity` / manifest flag.
    Most Android failures are here, not in JS.
-3. **Match the existing codebase** — reuse the app's `StoryManager` config/wrapper
-   and where the apiKey lives. Extend, don't paste anew.
+3. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `new StoryManager(` / `StoryManagerConfig` / `InAppStory.initSDK` and
+   `@inappstory/react-native-sdk` in `package.json`. **Found** → *extend* it: reuse
+   the config/wrapper and apiKey location; emit a diff. **Not found** → *scaffold
+   minimally* in the app's conventions, incl. the native `MainApplication.initSDK`
+   and `MainActivity : InAppStoryActivity`. Pin every API to the detected version;
+   return edits to real files, not a loose snippet — unless asked "how".
 4. **Then** fetch the topic page and write against the live API.
 
 ## Verify a first integration

@@ -66,9 +66,15 @@ Two quick checks before any integration work:
    1.23, IAM signature in 1.28). Grep `Podfile` / `Package.swift` / `Cartfile` for
    the `inappstory` tag; if absent, ask. Answer for *that* version; fetch
    **migrations** for deltas.
-3. **Match the existing codebase (codebase-aware).** Grep for `InAppStory.shared`,
-   `initWith`, `StoryView`/`StoryListView` and reuse the app's patterns (where the
-   serviceKey lives, its wrapper). Extend the integration; don't paste a fresh one.
+3. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `InAppStory.shared` / `initWith` / `StoryView`|`StoryListView` and the
+   `inappstory` dep in `Podfile`/`Package.swift`. **Found** → *extend* it: reuse the
+   serviceKey location, the app's wrapper, and its UIKit-or-SwiftUI module; emit a
+   diff. **Not found** → *scaffold minimally*: `initWith` in `AppDelegate`, key from
+   the app's config — follow the reference's API *sequence* (playbooks.md) but place
+   it in the app's own architecture (DI/MVVM/SwiftUI), never a vanilla copy. Pin every
+   API to the detected version; return edits to real
+   files, not a loose snippet — unless the user only asked "how".
 4. **Then** fetch the topic page and write against the live API.
 
 ## Verify a first integration

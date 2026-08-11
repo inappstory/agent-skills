@@ -59,8 +59,13 @@ Two quick checks before any integration work:
    URL; if absent, ask. **JS SDK 3 renamed `StoryManager`→`InAppStoryManager`** and
    flags are version-gated — answer for that version.
 2. **Detect NPM vs CDN** — imports vs `window.IAS.*` change every snippet.
-3. **Match the existing codebase** — reuse the app's mount `<div>` id, where the
-   apiKey lives, its manager instance. Extend, don't paste anew.
+3. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `new InAppStoryManager(` (or legacy `new StoryManager(`) and the mount
+   `<div id=…>`, plus `@inappstory/js-sdk` in `package.json`/the CDN URL. **Found**
+   → *extend* it: reuse that div id, the apiKey location and the existing manager
+   instance; emit a diff. **Not found** → *scaffold minimally* in the app's
+   conventions (NPM vs CDN). Pin every API to the detected version; return edits to
+   real files, not a loose snippet — unless asked "how".
 4. **Then** fetch the topic page and write against the live API.
 
 ## Verify a first integration

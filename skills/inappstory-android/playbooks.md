@@ -72,3 +72,27 @@ verify it runs (see **Verify a first integration** in SKILL.md).
   → [inappstory-manager](https://docs.inappstory.com/sdk-guides/android/inappstory-manager),
   [placeholders](https://docs.inappstory.com/sdk-guides/android/placeholders),
   [tags](https://docs.inappstory.com/sdk-guides/android/tags)
+
+## Reference integration (official example)
+
+Canonical working integration to pattern-match against:
+**https://github.com/inappstory/Android-Example** (`kotlinexamples/`, `javaexamples/`).
+Real idioms the docs don't spell out:
+
+- **Key/user indirection:** `DemoApplication` exposes `getApiKey()` / `getUserId()`;
+  init reads from them — `InAppStoryManager.initSDK(applicationContext)`, then
+  `InAppStoryManager.Builder().userId(getUserId()).apiKey(getApiKey()).sandbox(false).create()`.
+- **`.sandbox(false)`** Builder flag (sandbox vs production project).
+- Files to read: `.../DemoApplication.kt`, `.../MainActivity.kt`,
+  `.../simple/BasicIntegrationSample.kt`, `.../IASInitializer.kt`.
+
+⚠ Pinned to its own `$inappstory_version` (gradle) which may lag the latest — use it
+as a **pattern** reference and pin real APIs to the version the target app uses
+(see [pitfalls.md](pitfalls.md) / migrations).
+
+⚠ **It's deliberately vanilla** (`DemoApplication` + direct `MainActivity` wiring, no
+DI/modularization). Borrow the **SDK calls and their order**, not the architecture. On an
+app with Hilt/Koin, MVVM/MVI, Compose, or feature modules, place `initSDK`/`Builder` at the
+app's real init point (its existing DI graph / `Application`) and wrap `StoriesList` in the
+app's patterns — don't introduce globals or singletons it doesn't have. The target repo's
+architecture always wins over the example's.

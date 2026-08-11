@@ -63,10 +63,16 @@ Two quick checks before any integration work:
    (see pitfalls.md). Grep the app's gradle for
    `com.github.inappstory:android-sdk:X.Y.Z`; if you can't find it, ask. Answer for
    *that* version, and fetch **migrations** for deltas to the latest.
-2. **Match the existing codebase (codebase-aware).** Before writing code, grep for
-   an existing setup — `InAppStoryManager`, `initSdk`, `csApiKey`, `StoriesList` —
-   and reuse the app's patterns: its language (Kotlin/Java), where `apiKey`/`userId`
-   live, its wrapper/DI. Extend their integration; don't paste a fresh one beside it.
+2. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `InAppStoryManager` / `initSdk` / `StoriesList` and the `com.github.inappstory`
+   dep in `build.gradle`. **Found** → *extend* it: reuse where `csApiKey`/`userId`
+   live, the app's wrapper/DI and language (Kotlin/Java), and emit a diff to those
+   files. **Not found** → *scaffold minimally* in the app's conventions: `initSdk` in
+   the `Application` class, key from the app's config — follow the reference's API
+   *sequence* (playbooks.md) but place it in the app's own architecture (DI/MVVM/
+   Compose), never a vanilla copy. Pin every API to the detected
+   version; return edits to real files, not a loose snippet — unless the user only
+   asked "how".
 3. **Then** fetch the relevant topic page and write against the live API.
 
 ## Verify a first integration
