@@ -14,6 +14,10 @@ the actual API once you've picked.
 | One collapsed entry point that expands a feed | Stack Feed (`getStackFeed`) | stack-feed |
 | Non-story promo carousel with scratch-card | `BannerCarousel` | banners |
 
+For Jetpack Compose, use the current Compose integration and `android-sdk-compose`.
+Use `jetpack-compose-old` only when maintaining a legacy integration that embeds
+`StoriesList` through `AndroidView`; do not use it as the default for new code.
+
 ## Custom list cell: which interface?
 
 - `IStoriesListItem` — full control of the cell view and bindings.

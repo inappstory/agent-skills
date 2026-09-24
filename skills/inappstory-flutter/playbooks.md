@@ -6,7 +6,8 @@ is the usual failure point.
 
 Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
 request (*where* / *which* feature), and on a first integration ask the user for
-their integration key (`apiKey`).
+their integration key (`apiKey`). After a first integration, offer to
+verify it runs (see **Verify a first integration** in SKILL.md).
 
 ## Add a stories feed (first-time integration)
 
@@ -48,3 +49,12 @@ All go through the `InAppStoryManager.instance` singleton:
 `BannerPlace(placeId:, height:, onBannerScroll: (i){…})` — listen via widget
 callbacks (the old `IASBannerPlaceCallback` mixin was removed in 0.7.6).
 → [banners](https://docs.inappstory.com/sdk-guides/flutter/banners)
+
+## Update user tags
+
+- Keep tags to letters, numbers, `_`, and `-`; the URL-encoded value must fit
+  within 3999 bytes.
+- `setTags` replaces the full list; `addTags` and `removeTags` update it.
+- After changing tags, reload the `FeedStoriesController` so the feed reflects
+  the new targeting.
+  → [tags](https://docs.inappstory.com/sdk-guides/flutter/tags)

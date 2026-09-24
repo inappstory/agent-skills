@@ -6,7 +6,8 @@ usual failure point.
 
 Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
 request (*where* / *which* feature), and on a first integration ask the user for
-their integration key (`apiKey`).
+their integration key (`apiKey`). After a first integration, offer to
+verify it runs (see **Verify a first integration** in SKILL.md).
 
 ## Add stories (first-time integration)
 
@@ -18,7 +19,7 @@ their integration key (`apiKey`).
      `loadReactNative(this)`.
    - `MainActivity` extends `InAppStoryActivity`.
    - `AndroidManifest.xml`: `android:enableOnBackInvokedCallback="true"`.
-4. **JS side:** `const storyManager = new StoryManager({ apiKey })` and render the
+4. **JS side:** `const storyManager = await StoryManager.create({ apiKey })` and render the
    stories list component.
    → [how-to-get-started](https://docs.inappstory.com/sdk-guides/react-native/how-to-get-started),
    [stories-list](https://docs.inappstory.com/sdk-guides/react-native/stories-list)
@@ -31,6 +32,10 @@ their integration key (`apiKey`).
   Goods / product cart → [goods](https://docs.inappstory.com/sdk-guides/react-native/goods)
 - Banners → [banners](https://docs.inappstory.com/sdk-guides/react-native/banners),
   Call To Action → [call-to-action](https://docs.inappstory.com/sdk-guides/react-native/call-to-action)
+- Product cart → configure the product-cart handlers on the manager; handlers
+  may be synchronous or async and return the result expected by the story.
+  → [product-cart](https://docs.inappstory.com/sdk-guides/react-native/product-cart),
+  [story-manager](https://docs.inappstory.com/sdk-guides/react-native/story-manager)
 
 ## CodePush / OTA: keep version targeting working
 

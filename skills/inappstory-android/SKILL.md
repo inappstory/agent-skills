@@ -51,6 +51,11 @@ Two quick checks before any integration work:
    finds no existing IAS setup, this is a fresh integration: ask the user for their
    **integration key** (`apiKey`, a.k.a. `csApiKey`) — init fails without it. If a
    setup already exists, reuse its key; don't ask.
+3. **Verify it? Decide now (first integration only).** Offer to build & run the app
+   after wiring it up, so a first integration isn't left untried. Ask the depth —
+   smoke-run (build + launch, watch the feed load), also a minimal test, or skip —
+   batched with the questions above. A "yes" here is the go-ahead; don't re-ask
+   before running. See **Verify a first integration** below for how.
 
 ## Before you answer or write integration code
 
@@ -58,11 +63,35 @@ Two quick checks before any integration work:
    (see pitfalls.md). Grep the app's gradle for
    `com.github.inappstory:android-sdk:X.Y.Z`; if you can't find it, ask. Answer for
    *that* version, and fetch **migrations** for deltas to the latest.
-2. **Match the existing codebase (codebase-aware).** Before writing code, grep for
-   an existing setup — `InAppStoryManager`, `initSdk`, `csApiKey`, `StoriesList` —
-   and reuse the app's patterns: its language (Kotlin/Java), where `apiKey`/`userId`
-   live, its wrapper/DI. Extend their integration; don't paste a fresh one beside it.
+2. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `InAppStoryManager` / `initSdk` / `StoriesList` and the `com.github.inappstory`
+   dep in `build.gradle`. **Found** → *extend* it: reuse where `csApiKey`/`userId`
+   live, the app's wrapper/DI and language (Kotlin/Java), and emit a diff to those
+   files. **Not found** → *scaffold minimally* in the app's conventions: `initSdk` in
+   the `Application` class, key from the app's config — follow the reference's API
+   *sequence* (playbooks.md) but place it in the app's own architecture (DI/MVVM/
+   Compose), never a vanilla copy. Pin every API to the detected
+   version; return edits to real files, not a loose snippet — unless the user only
+   asked "how".
 3. **Then** fetch the relevant topic page and write against the live API.
+
+## Verify a first integration
+
+Only if the user opted in at Intake — the "yes" there is the go-ahead, so run
+without re-asking. A first integration shouldn't be left untried.
+
+- **Smoke-run:** `./gradlew installDebug` on a booted emulator (`emulator
+  -list-avds`), or Run in Android Studio. Watch **Logcat** for the feed's API call
+  and cells appearing.
+  → [how-to-get-started](https://docs.inappstory.com/sdk-guides/android/how-to-get-started)
+- **Empty feed ≠ broken.** No cells can mean the integration is fine but the feed
+  slug is wrong, the `apiKey` has no published stories, or the user is filtered out
+  by tags. Confirm a successful API response in Logcat before assuming a bug.
+- **Automated test (only if the user asked for one):** keep it a smoke/render check
+  (view mounts, no crash), not an assertion on remote content — the feed loads live
+  data, so any content assertion will be flaky.
+- **No emulator available?** Say so and give the user the exact run command; don't
+  claim a pass you didn't see.
 
 ## Topics
 
@@ -75,6 +104,7 @@ Two quick checks before any integration work:
 | User settings | https://docs.inappstory.com/sdk-guides/android/user-settings |
 | Anonymous mode | https://docs.inappstory.com/sdk-guides/android/anonymous-mode |
 | Jetpack Compose integration | https://docs.inappstory.com/sdk-guides/android/jetpack-compose |
+| Legacy Jetpack Compose integration | https://docs.inappstory.com/sdk-guides/android/jetpack-compose-old |
 | Migrations | https://docs.inappstory.com/sdk-guides/android/migrations |
 | FAQ | https://docs.inappstory.com/sdk-guides/android/FAQ |
 

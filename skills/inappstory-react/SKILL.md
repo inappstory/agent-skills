@@ -48,16 +48,43 @@ Two quick checks before any integration work:
    finds no existing IAS setup, this is a fresh integration: ask the user for their
    **integration key** (`apiKey`) — init fails without it. If a setup already
    exists, reuse its key; don't ask.
+3. **Verify it? Decide now (first integration only).** Offer to build & run the app
+   after wiring it up, so a first integration isn't left untried. Ask the depth —
+   smoke-run (build + launch, watch the feed load), also a minimal test, or skip —
+   batched with the questions above. A "yes" here is the go-ahead; don't re-ask
+   before running. See **Verify a first integration** below for how.
 
 ## Before you answer or write integration code
 
 1. **Check the package version** in `package.json` (`@inappstory/react-sdk`);
    if absent, ask. Config flags are version-gated (`options` v1.7.6, `anonymous`
    v3.6.6, `hybridApp` v1.14.0) — answer for that version.
-2. **Match the existing codebase** — reuse the app's options module, where the
-   apiKey/`StoryManagerConfig` lives, its `IASContainer` placement. Extend, don't
-   paste a second container.
+2. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `<IASContainer` / `StoryManagerConfig` / `StoryList` and `@inappstory/react-sdk`
+   in `package.json`. **Found** → *extend* it: reuse the options module, the apiKey
+   location, and the existing `IASContainer` (don't add a second one); emit a diff.
+   **Not found** → *scaffold minimally* in the app's conventions. Pin every API/flag
+   to the detected version; return edits to real files, not a loose snippet — unless
+   asked "how".
 3. **Then** fetch the topic page and write against the live API.
+
+## Verify a first integration
+
+Only if the user opted in at Intake — the "yes" there is the go-ahead, so run
+without re-asking. A first integration shouldn't be left untried.
+
+- **Smoke-run:** start the dev server (`npm run dev`, or the app's script) and open
+  the page in a browser. Watch the **Network** tab for the feed's API call and the
+  `IASContainer` filling with cells.
+  → [how-to-get-started](https://docs.inappstory.com/sdk-guides/react-sdk/how-to-get-started)
+- **Empty feed ≠ broken.** No cells can mean the integration is fine but the feed
+  slug is wrong, the `apiKey` has no published stories, or the user is filtered out
+  by tags. Confirm a successful API response in the Network tab before assuming a bug.
+- **Automated test (only if the user asked for one):** keep it a smoke/render check
+  (the component mounts, no error thrown), not an assertion on remote content — the
+  feed loads live data, so any content assertion will be flaky.
+- **No way to serve it?** Say so and give the user the exact command; don't claim a
+  pass you didn't see.
 
 ## Topics
 

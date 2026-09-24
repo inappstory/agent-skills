@@ -7,7 +7,8 @@ current signatures before writing the call.
 
 Before any recipe, run the **Intake** (SKILL.md): clarify an underspecified
 request (*where* / *which* feature), and on a first integration ask the user for
-their integration key (`serviceKey`).
+their integration key (`serviceKey`). After a first integration, offer to
+verify it runs (see **Verify a first integration** in SKILL.md).
 
 ## Add a stories list
 
@@ -75,3 +76,29 @@ InAppStory.shared.failureEvent = { event in /* IASEvent.Failure.* */ }
 Reassign `InAppStory.shared.settings = Settings(userID:tags:)` (respect the 255B /
 4000B limits) **before** re-creating lists; readers refresh accordingly.
 → [user-settings](https://docs.inappstory.com/sdk-guides/ios/user-settings)
+
+## Reference integration (official example)
+
+Canonical working integration to pattern-match against:
+**https://github.com/inappstory/iOS-Example** — **UIKit**, SDK **1.26.0**
+(`pod 'InAppStory'`, `import InAppStorySDK`). Real idioms:
+
+- **Init** in `AppDelegate.didFinishLaunchingWithOptions`:
+  `InAppStory.shared.initWith(serviceKey: "<key>")` (key from the console).
+- **List:** `StoryView()` → `storyView.target = self` → `storyView.create()`.
+- **Actions via closures** (matches ≥1.23): a `StoriesClosureHandler` wrapper holds the
+  `onActionWith` / `storiesEvent` closures instead of an `InAppStoryDelegate`.
+- Files: `InAppStoryExample/AppDelegate.swift`,
+  `InAppStoryExample/Examples/SimpleIntegration/SimpleIntegrationController.swift`.
+
+⚠ Pinned to **1.26.0** — **pre-1.28**, so its IAM (if any) uses the old
+`inAppMessageWillShow` signature and SwiftUI isn't covered. Use it as a **pattern**
+reference and pin real APIs to the target app's version (see [pitfalls.md](pitfalls.md) /
+migrations).
+
+⚠ **It's deliberately vanilla** (init in `AppDelegate`, wiring inside one controller,
+no DI/MVVM). Borrow the **SDK calls and their order**, not the architecture. On an app
+with DI / MVVM / TCA / coordinators / SwiftUI / modular packages, place `initWith` at the
+app's real composition root and wrap `StoryView`/closures in the app's own layers — never
+add `AppDelegate` globals or singletons the app doesn't already use. The target repo's
+architecture always wins over the example's.

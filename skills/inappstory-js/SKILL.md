@@ -47,6 +47,11 @@ Two quick checks before any integration work:
    finds no existing IAS setup, this is a fresh integration: ask the user for their
    **integration key** (`apiKey`) — init fails without it. If a setup already
    exists, reuse its key; don't ask.
+3. **Verify it? Decide now (first integration only).** Offer to build & run the app
+   after wiring it up, so a first integration isn't left untried. Ask the depth —
+   smoke-run (build + launch, watch the feed load), also a minimal test, or skip —
+   batched with the questions above. A "yes" here is the go-ahead; don't re-ask
+   before running. See **Verify a first integration** below for how.
 
 ## Before you answer or write integration code
 
@@ -54,9 +59,32 @@ Two quick checks before any integration work:
    URL; if absent, ask. **JS SDK 3 renamed `StoryManager`→`InAppStoryManager`** and
    flags are version-gated — answer for that version.
 2. **Detect NPM vs CDN** — imports vs `window.IAS.*` change every snippet.
-3. **Match the existing codebase** — reuse the app's mount `<div>` id, where the
-   apiKey lives, its manager instance. Extend, don't paste anew.
+3. **Write against the repo, not a blank slate (codebase-aware).** Grep for
+   `new InAppStoryManager(` (or legacy `new StoryManager(`) and the mount
+   `<div id=…>`, plus `@inappstory/js-sdk` in `package.json`/the CDN URL. **Found**
+   → *extend* it: reuse that div id, the apiKey location and the existing manager
+   instance; emit a diff. **Not found** → *scaffold minimally* in the app's
+   conventions (NPM vs CDN). Pin every API to the detected version; return edits to
+   real files, not a loose snippet — unless asked "how".
 4. **Then** fetch the topic page and write against the live API.
+
+## Verify a first integration
+
+Only if the user opted in at Intake — the "yes" there is the go-ahead, so run
+without re-asking. A first integration shouldn't be left untried.
+
+- **Smoke-run:** serve the page (the app's dev server or a static server) and open
+  it in a browser. Watch the **Network** tab for the feed's API call and the list
+  container filling with cells.
+  → [how-to-get-started](https://docs.inappstory.com/sdk-guides/js-sdk/how-to-get-started)
+- **Empty feed ≠ broken.** No cells can mean the integration is fine but the feed
+  slug is wrong, the `apiKey` has no published stories, or the user is filtered out
+  by tags. Confirm a successful API response in the Network tab before assuming a bug.
+- **Automated test (only if the user asked for one):** keep it a smoke check (the
+  script loads, the container mounts, no console error), not an assertion on remote
+  content — the feed loads live data, so any content assertion will be flaky.
+- **No way to serve it?** Say so and give the user the exact command; don't claim a
+  pass you didn't see.
 
 ## Topics
 

@@ -25,6 +25,10 @@ Distilled from get-started / migrations. Package
 - **App-version targeting:** by default appVersion/appBundle come from native. For
   **CodePush** users, override via `StoryManagerConfig.appVersion = {version, build}`
   so targeting-by-version keeps working after an OTA update.
+- Runtime setters can trigger a `reinit`; don't treat them as local-only state
+  changes.
+- Product-cart handlers may be synchronous or async. If a handler throws, the SDK
+  logs the error and resolves the result as `null`.
 
 ## Migrating from the legacy RN SDK
 
