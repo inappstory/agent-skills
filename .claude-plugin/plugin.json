@@ -1,7 +1,7 @@
 {
   "name": "inappstory",
   "description": "InAppStory (IAS) SDK integration skills for Android, iOS, Flutter, React Native, React and JavaScript — routing to the live docs plus a curated playbooks/pitfalls/decisions layer.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Alex Sungurov"
   },
