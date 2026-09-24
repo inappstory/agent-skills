@@ -95,6 +95,8 @@ without re-asking. A first integration shouldn't be left untried.
 | Topic | Page |
 |---|---|
 | How to get started | https://docs.inappstory.com/sdk-guides/react-native/how-to-get-started |
+| Story Manager | https://docs.inappstory.com/sdk-guides/react-native/story-manager |
+| Options | https://docs.inappstory.com/sdk-guides/react-native/options |
 | User settings | https://docs.inappstory.com/sdk-guides/react-native/user-settings |
 | Migrations | https://docs.inappstory.com/sdk-guides/react-native/migrations |
 
@@ -112,6 +114,7 @@ without re-asking. A first integration shouldn't be left untried.
 | In-App Messaging | https://docs.inappstory.com/sdk-guides/react-native/in-app-messaging |
 | Games | https://docs.inappstory.com/sdk-guides/react-native/games |
 | Goods | https://docs.inappstory.com/sdk-guides/react-native/goods |
+| Product cart | https://docs.inappstory.com/sdk-guides/react-native/product-cart |
 | Call To Action | https://docs.inappstory.com/sdk-guides/react-native/call-to-action |
 | Favorites | https://docs.inappstory.com/sdk-guides/react-native/favorites |
 | Sound | https://docs.inappstory.com/sdk-guides/react-native/sound |

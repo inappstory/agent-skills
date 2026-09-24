@@ -8,6 +8,9 @@ and each release is tagged `vX.Y.Z` (cut with `scripts/release`).
 
 ## [0.3.0]
 
+- Sync the skill indexes and judgment layers with the latest SDK docs: add the
+  legacy Android Compose, Flutter tags, and React Native Story Manager, Options,
+  and product cart topics, plus their version and behavior caveats.
 - Turn the **codebase-aware** step into an explicit write-integration procedure in
   all six skills: locate the existing setup by a concrete symbol → *extend* it
   (reuse the apiKey/serviceKey location, wrapper and language; emit a diff) or

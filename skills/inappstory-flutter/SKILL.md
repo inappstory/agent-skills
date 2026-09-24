@@ -125,6 +125,7 @@ without re-asking. A first integration shouldn't be left untried.
 ### Targeting, events & handling
 | Topic | Page |
 |---|---|
+| Tags | https://docs.inappstory.com/sdk-guides/flutter/tags |
 | Events | https://docs.inappstory.com/sdk-guides/flutter/events |
 | Cancellation of long-running actions | https://docs.inappstory.com/sdk-guides/flutter/cancellation-of-actions |
 

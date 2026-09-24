@@ -49,3 +49,12 @@ All go through the `InAppStoryManager.instance` singleton:
 `BannerPlace(placeId:, height:, onBannerScroll: (i){…})` — listen via widget
 callbacks (the old `IASBannerPlaceCallback` mixin was removed in 0.7.6).
 → [banners](https://docs.inappstory.com/sdk-guides/flutter/banners)
+
+## Update user tags
+
+- Keep tags to letters, numbers, `_`, and `-`; the URL-encoded value must fit
+  within 3999 bytes.
+- `setTags` replaces the full list; `addTags` and `removeTags` update it.
+- After changing tags, reload the `FeedStoriesController` so the feed reflects
+  the new targeting.
+  → [tags](https://docs.inappstory.com/sdk-guides/flutter/tags)

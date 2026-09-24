@@ -46,3 +46,8 @@ The Dart package alone is **not enough** — you must touch the native Android h
   (0.8.0), `IASGameReaderCallback` (0.7.0), `IASCallToActionCallback` (0.4.0).
 - **Banner events**: the `IASBannerPlaceCallback` mixin was **removed in 0.7.6** —
   listen via callbacks on the `BannerPlace` widget itself (`onBannerScroll`).
+
+## Tags replace versus mutate
+
+- Invalid tags clear the list when passed to `setTags`.
+- Invalid tags are ignored by `addTags` and `removeTags`.

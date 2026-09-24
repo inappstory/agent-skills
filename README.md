@@ -134,8 +134,8 @@ scripts/sync-docs --save
 Version lives in [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and each release is a matching `vX.Y.Z` git tag — the one number both the Claude Code plugin manager and `npx skills ...#tag` pinning read. Add a [`CHANGELOG.md`](CHANGELOG.md) entry, commit it, then:
 
 ```bash
-scripts/release 0.2.0        # bumps plugin.json, commits, tags v0.2.0
-git push && git push origin v0.2.0
+scripts/release 0.3.0        # bumps plugin.json, commits, tags v0.3.0
+git push && git push origin v0.3.0
 ```
 
 ---
@@ -150,6 +150,8 @@ skills/inappstory-<platform>/   # Product skills (one per platform)
   decisions.md                  # Architectural decision guides
 assets/readme/                  # Pure SVG visual system (hero.svg, architecture.svg)
 scripts/sync-docs               # Maintainer CLI tool for docs drift detection
+scripts/release                 # Bump plugin version, commit, and tag a release
+.claude-plugin/                 # Claude Code plugin and marketplace manifests
 AGENTS.md  CLAUDE.md  README.md
 ```
 

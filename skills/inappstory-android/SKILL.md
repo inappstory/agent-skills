@@ -104,6 +104,7 @@ without re-asking. A first integration shouldn't be left untried.
 | User settings | https://docs.inappstory.com/sdk-guides/android/user-settings |
 | Anonymous mode | https://docs.inappstory.com/sdk-guides/android/anonymous-mode |
 | Jetpack Compose integration | https://docs.inappstory.com/sdk-guides/android/jetpack-compose |
+| Legacy Jetpack Compose integration | https://docs.inappstory.com/sdk-guides/android/jetpack-compose-old |
 | Migrations | https://docs.inappstory.com/sdk-guides/android/migrations |
 | FAQ | https://docs.inappstory.com/sdk-guides/android/FAQ |
 
