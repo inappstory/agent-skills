@@ -1,0 +1,123 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-skills:
+    name: Validate Skills & Manifests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate JSON Manifests
+        run: |
+          node -e '
+            const files = [".claude-plugin/plugin.json", ".claude-plugin/marketplace.json"];
+            files.forEach(f => {
+              try {
+                const data = JSON.parse(require("fs").readFileSync(f, "utf8"));
+                console.log(`✓ ${f} is valid JSON`);
+                if (f.endsWith("plugin.json")) {
+                  if (!data.version || !/^\d+\.\d+\.\d+$/.test(data.version)) {
+                    throw new Error(`Invalid or missing version in ${f}: ${data.version}`);
+                  }
+                }
+              } catch (e) {
+                console.error(`✗ Error parsing ${f}:`, e.message);
+                process.exit(1);
+              }
+            });
+          '
+
+      - name: Validate Skills Structure & Frontmatter
+        run: |
+          node -e '
+            const fs = require("fs");
+            const path = require("path");
+
+            const platforms = ["android", "ios", "flutter", "react-native", "react", "js"];
+            const requiredFiles = ["SKILL.md", "playbooks.md", "pitfalls.md", "decisions.md"];
+
+            let hasErrors = false;
+
+            for (const plat of platforms) {
+              const dir = path.join("skills", `inappstory-${plat}`);
+              if (!fs.existsSync(dir)) {
+                console.error(`✗ Missing skill directory: ${dir}`);
+                hasErrors = true;
+                continue;
+              }
+
+              for (const req of requiredFiles) {
+                const filePath = path.join(dir, req);
+                if (!fs.existsSync(filePath)) {
+                  console.error(`✗ Missing file: ${filePath}`);
+                  hasErrors = true;
+                }
+              }
+
+              const skillMdPath = path.join(dir, "SKILL.md");
+              if (fs.existsSync(skillMdPath)) {
+                const content = fs.readFileSync(skillMdPath, "utf8");
+                const fmMatch = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+                if (!fmMatch) {
+                  console.error(`✗ ${skillMdPath} is missing YAML frontmatter`);
+                  hasErrors = true;
+                } else {
+                  const fm = fmMatch[1];
+                  const hasName = new RegExp(`^name:\\s*inappstory-${plat}$`, "m").test(fm);
+                  const hasDesc = /^description:\s*.+/m.test(fm);
+                  if (!hasName) {
+                    console.error(`✗ ${skillMdPath} frontmatter must have "name: inappstory-${plat}"`);
+                    hasErrors = true;
+                  }
+                  if (!hasDesc) {
+                    console.error(`✗ ${skillMdPath} frontmatter must have non-empty "description"`);
+                    hasErrors = true;
+                  }
+                }
+              }
+            }
+
+            if (hasErrors) {
+              process.exit(1);
+            }
+            console.log("✓ All 6 skills passed structure and frontmatter validation.");
+          '
+
+      - name: Verify Version against CHANGELOG.md
+        run: |
+          node -e '
+            const fs = require("fs");
+            const plugin = JSON.parse(fs.readFileSync(".claude-plugin/plugin.json", "utf8"));
+            const changelog = fs.readFileSync("CHANGELOG.md", "utf8");
+            const versionHeader = `## [${plugin.version}]`;
+            if (!changelog.includes(versionHeader)) {
+              console.error(`✗ Version ${plugin.version} from plugin.json not found in CHANGELOG.md (expected header: "${versionHeader}")`);
+              process.exit(1);
+            }
+            console.log(`✓ Version ${plugin.version} is documented in CHANGELOG.md`);
+          '
+
+  lint-scripts:
+    name: Lint Bash Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: './scripts'
+          severity: warning
