@@ -6,6 +6,29 @@ and each release is tagged `vX.Y.Z` (cut with `scripts/release`).
 
 ## [Unreleased]
 
+## [0.4.2]
+
+- Sync the Flutter skill index and judgment layer with Flutter SDK 0.11.0 docs:
+  - **Flutter (0.11.0)**:
+    - **Domain models**: document `StoryData`, `SlideData`, `InAppMessageData`,
+      `GoodsItemData`, `ContentData`, `StoryType`, `SourceType`, `ClickAction`,
+      `InAppMessageType`, and `ContentType` replacing generated `*Dto` classes
+      across all public APIs and callback mixins.
+    - **Goods**: document `GoodsItemData.description` property usage in
+      `goodsItemSelected` callback and `Future<List<GoodsItemData>>` in `setGetSkusCallback`.
+    - **Banners**: document `BannerGrid` two-column layout widget with
+      `BannerGridDecoration`, deprecation of `BannerDecoration`, and global banner
+      placeholders via `AppearanceManager.instance.setBannersPlaceholder`.
+    - **Loading placeholders**: document global story cover loading placeholder
+      via `AppearanceManager.instance.setStoriesPlaceholder` and Android navigation
+      bar color via `AppearanceManager.instance.setNavBarColor`.
+    - **Targeting**: document single story targeting (`showStoryWithTargeting`)
+      and in-app messaging targeting (`showIAMByIdWithTargeting`,
+      `showIAMByEventWithTargeting`) with request-specific `tags`.
+    - **Game controls**: document migration from removed `IASGamesHostApi` to
+      `InAppStoryManager.instance.openGame`, `closeGame`, and `preloadGames`.
+  - Update `sync-docs.state` baseline.
+
 ## [0.4.1]
 
 - Sync the skill indexes and judgment layers with latest Android and iOS SDK docs:

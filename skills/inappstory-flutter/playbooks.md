@@ -25,30 +25,45 @@ verify it runs (see **Verify a first integration** in SKILL.md).
    → [how-to-get-started](https://docs.inappstory.com/sdk-guides/flutter/how-to-get-started),
    [feed-stories-widget](https://docs.inappstory.com/sdk-guides/flutter/feed-stories-widget)
 
-## Show onboardings / single story / IAM (0.8.0+ API)
+## Show onboardings / single story / IAM / games (0.8.0+ / 0.11.0+)
 
 All go through the `InAppStoryManager.instance` singleton:
 - Onboardings: `InAppStoryManager.instance.showOnboardings(limit)`.
   → [onboardings](https://docs.inappstory.com/sdk-guides/flutter/onboardings)
-- Single story: `showStory(storyId)` / `showStoryOnce(storyId)`.
+- Single story: `showStory(storyId)` / `showStoryOnce(storyId)` (bypasses targeting),
+  or `showStoryWithTargeting(storyId, tags: ...)` (0.11.0+) to evaluate targeting rules
+  with optional request-specific tags.
   → [single-story](https://docs.inappstory.com/sdk-guides/flutter/single-story)
-- In-App Messaging: `showIAMById(id)` / `showIAMByEvent(event)` /
-  `preloadInAppMessages()`. Requires the `InAppStoryActivity` back-button setup.
+- In-App Messaging: `showIAMById(id)` / `showIAMByEvent(event)` / `preloadInAppMessages()`.
+  In 0.11.0+, use `showIAMByIdWithTargeting(id, tags: ...)` or `showIAMByEventWithTargeting(event, tags: ...)`
+  to evaluate targeting and pass request-specific tags. Requires the `InAppStoryActivity`
+  back-button setup.
   → [in-app-messaging](https://docs.inappstory.com/sdk-guides/flutter/in-app-messaging)
+- Games: `openGame(gameId)`, `closeGame()`, and `preloadGames()` (0.11.0+;
+  `IASGamesHostApi` is removed).
+  → [games](https://docs.inappstory.com/sdk-guides/flutter/games)
 
-## Change user / appearance
+## Change user / appearance / placeholders
 
 - Switch user: `InAppStoryManager.instance.changeUser('<newUserId>')`.
   → [in-app-story-manager](https://docs.inappstory.com/sdk-guides/flutter/in-app-story-manager),
   [user-settings](https://docs.inappstory.com/sdk-guides/flutter/user-settings)
 - Appearance: `AppearanceManager.instance.…` (singleton since 0.4.0).
   → [appearance-manager](https://docs.inappstory.com/sdk-guides/flutter/appearance-manager)
+- Global placeholders (0.11.0+): configure once globally via
+  `AppearanceManager.instance.setStoriesPlaceholder(decoration: ...)` for story covers and
+  `AppearanceManager.instance.setBannersPlaceholder(decoration: ...)` for banner content.
+  → [appearance-manager](https://docs.inappstory.com/sdk-guides/flutter/appearance-manager),
+  [list-placeholders](https://docs.inappstory.com/sdk-guides/flutter/list-placeholders)
+- Android navigation bar color (0.11.0+):
+  `AppearanceManager.instance.setNavBarColor(Colors.black, darkColor: Colors.black)`.
 
-## Add banners
+## Add banners (carousel & grid)
 
-`BannerPlace(placeId:, height:, onBannerScroll: (i){…})` — listen via widget
-callbacks (the old `IASBannerPlaceCallback` mixin was removed in 0.7.6).
-→ [banners](https://docs.inappstory.com/sdk-guides/flutter/banners)
+- **Carousel:** `BannerPlace(placeId:, height:, placeDecoration: BannerPlaceDecoration(...), onBannerScroll: (i){…})`.
+- **Grid (0.11.0+):** `BannerGrid(placeId:, height:, gridDecoration: BannerGridDecoration(horizontalGap: 8, verticalGap: 8, cornerRadius: 16), onBannerPlaceLoaded: (size, widgetHeight){…})` — 2-column non-scrolling grid layout. Resize dynamically using the calculated `widgetHeight` or wrap in a scroll view.
+- Note: `BannerDecoration` and `BannerPlace.bannerDecoration` are deprecated in 0.11.0 (ignored). Use `AppearanceManager.instance.setBannersPlaceholder(...)`.
+  → [banners](https://docs.inappstory.com/sdk-guides/flutter/banners)
 
 ## Update user tags
 
