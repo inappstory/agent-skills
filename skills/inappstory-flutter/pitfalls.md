@@ -75,5 +75,5 @@ The Dart package alone is **not enough** — you must touch the native Android h
 ## Migrating to 0.10.0 (breaking renames & extraFields)
 
 - **`ProductCartOffer`**: `description` field was renamed to `offerDescription`.
-- **`GoodsItemDataDto`**: `description` field in `goodsItemSelected` callback was renamed to `productDescription` (superceded by `GoodsItemData.description` in 0.11.0).
+- **`GoodsItemDataDto`**: `description` field in `goodsItemSelected` callback was renamed to `productDescription` (superseded by `GoodsItemData.description` in 0.11.0).
 - **`extraFields`**: `Map<String, String>? extraFields` is now available on `StoryData`, `InAppMessageData`, and `BannerData`.
