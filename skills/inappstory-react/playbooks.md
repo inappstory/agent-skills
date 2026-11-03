@@ -29,8 +29,15 @@ verify it runs (see **Verify a first integration** in SKILL.md).
 ## Feature entry points
 
 - Onboarding → [onboardings](https://docs.inappstory.com/sdk-guides/react-sdk/onboardings)
-- Single story → [single-story](https://docs.inappstory.com/sdk-guides/react-sdk/single-story)
-- In-App Messaging → [in-app-messaging](https://docs.inappstory.com/sdk-guides/react-sdk/in-app-messaging)
+- Single story: `showStory(id, { targeting: true, signal })` / `showStoryOnce(id, { targeting: true, signal })` —
+  set `targeting: true` (since 1.16.9) to apply user targeting on fetch; pass `signal: AbortSignal` to cancel.
+  → [single-story](https://docs.inappstory.com/sdk-guides/react-sdk/single-story),
+  [external-api](https://docs.inappstory.com/sdk-guides/react-sdk/external-api)
+- In-App Messaging: `inAppMessaging.showMessageById(id, { targeting: true })` — set `targeting: true`
+  (since 1.16.9) to apply user targeting.
+  → [in-app-messaging](https://docs.inappstory.com/sdk-guides/react-sdk/in-app-messaging)
+- Events & extra fields: `extraFields` attribute is provided on Stories, IAM, and Banners payloads.
+  → [events](https://docs.inappstory.com/sdk-guides/react-sdk/events)
 - Games → [games](https://docs.inappstory.com/sdk-guides/react-sdk/games),
   Favorites → [favorites](https://docs.inappstory.com/sdk-guides/react-sdk/favorites),
   Share panel → [share-panel](https://docs.inappstory.com/sdk-guides/react-sdk/share-panel)

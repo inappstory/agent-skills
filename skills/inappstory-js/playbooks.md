@@ -41,8 +41,15 @@ Same, but load `IAS.js`, run inside `DOMContentLoaded`, and use
 ## Feature entry points
 
 - Onboarding → [onboardings](https://docs.inappstory.com/sdk-guides/js-sdk/onboardings)
-- Single story → [single-story](https://docs.inappstory.com/sdk-guides/js-sdk/single-story)
-- In-App Messaging → [in-app-messaging](https://docs.inappstory.com/sdk-guides/js-sdk/in-app-messaging)
+- Single story: `inAppStoryManager.showStory(id, { targeting: true, signal })` / `showStoryOnce(id, { targeting: true, signal })` —
+  `targeting: true` (since 3.15.8) applies user targeting on fetch; pass `signal: AbortSignal` to cancel.
+  → [single-story](https://docs.inappstory.com/sdk-guides/js-sdk/single-story),
+  [external-api](https://docs.inappstory.com/sdk-guides/js-sdk/external-api)
+- In-App Messaging: `inAppMessaging.showMessageById(id, { targeting: true })` — set `targeting: true`
+  (since 3.15.8) to apply user targeting.
+  → [in-app-messaging](https://docs.inappstory.com/sdk-guides/js-sdk/in-app-messaging)
+- Events & extra fields: `extraFields` attribute is provided on Stories, IAM, and Banners payloads.
+  → [events](https://docs.inappstory.com/sdk-guides/js-sdk/events)
 - Stack feed → [stack-feed](https://docs.inappstory.com/sdk-guides/js-sdk/stack-feed),
   Goods → [widget-goods](https://docs.inappstory.com/sdk-guides/js-sdk/widget-goods),
   Games → [games](https://docs.inappstory.com/sdk-guides/js-sdk/games)

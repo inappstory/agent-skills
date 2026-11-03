@@ -29,6 +29,13 @@ Distilled from get-started / migrations. Package
   changes.
 - Product-cart handlers may be synchronous or async. If a handler throws, the SDK
   logs the error and resolves the result as `null`.
+- **Close active readers (1.1.0+):** `storyManager.closeReaders()` programmatically closes
+  active story, onboarding, and IAM readers.
+- **Dynamic statistics (1.1.0+):** `storyManager.setSendStatistics(enabled)` toggles analytics
+  sending dynamically without full SDK re-initialization.
+- **Tags limit (1.1.0+):** max 100 tags (previous 4096-byte limit replaced). Allowed
+  characters: letters, digits, `_`, `-`.
+- **`extraFields` (1.1.0+):** supported across Story events, IAM events, and Banner data.
 
 ## Migrating from the legacy RN SDK
 

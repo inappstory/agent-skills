@@ -16,7 +16,7 @@ The Dart package alone is **not enough** — you must touch the native Android h
   reader won't close. (History: `FlutterActivity` → `FlutterFragmentActivity` for
   IAM in 0.3 → `InAppStoryActivity` in 0.7.1.)
 - **Android** `minSdkVersion = 23`, compile/target 34.
-- **iOS**: run `pod install` (or `--repo-update`) in the `ios/` folder.
+- **iOS**: run `pod install` (or `--repo-update`) in the `ios/` folder, or use Swift Package Manager (SPM, supported natively in Flutter 3.24+).
 
 ## Init is async — await it
 
@@ -51,3 +51,10 @@ The Dart package alone is **not enough** — you must touch the native Android h
 
 - Invalid tags clear the list when passed to `setTags`.
 - Invalid tags are ignored by `addTags` and `removeTags`.
+- **Validation limit (0.10.0+):** max 100 tags (previous 3999-byte limit was replaced). Allowed characters: letters, digits, `_`, `-`.
+
+## Migrating to 0.10.0 (breaking renames & extraFields)
+
+- **`ProductCartOffer`**: `description` field was renamed to `offerDescription`.
+- **`GoodsItemDataDto`**: `description` field in `goodsItemSelected` callback was renamed to `productDescription`.
+- **`extraFields`**: `Map<String, String>? extraFields` is now available on `StoryDataDto`, `InAppMessageDataDto`, and `BannerData`.
