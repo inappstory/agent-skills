@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish-release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Extract Release Notes from CHANGELOG
+        id: release_notes
+        run: |
+          TAG_NAME="${GITHUB_REF_NAME}"
+          VERSION="${TAG_NAME#v}"
+          
+          NOTES=$(node -e '
+            const fs = require("fs");
+            const ver = process.argv[1];
+            const content = fs.readFileSync("CHANGELOG.md", "utf8");
+            const regex = new RegExp(`## \\[${ver}\\][\\r\\n]+([\\s\\S]*?)(?=\\n## |\$)`);
+            const match = content.match(regex);
+            if (match && match[1].trim()) {
+              console.log(match[1].trim());
+            } else {
+              console.log(`Release ${ver}`);
+            }
+          ' "$VERSION")
+
+          echo "notes<<EOF" >> $GITHUB_OUTPUT
+          echo "$NOTES" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          body: ${{ steps.release_notes.outputs.notes }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
