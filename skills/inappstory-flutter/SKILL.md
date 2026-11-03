@@ -33,9 +33,9 @@ Base URL: `https://docs.inappstory.com/sdk-guides/flutter/`
   story, IAM, switch user, banners) including the mandatory native Android steps.
 - **[pitfalls.md](pitfalls.md)** — grounded gotchas: native setup (`initSDK` in
   `Application`, `MainActivity : InAppStoryActivity`), async `initWith`, singleton
-  `.instance` migration, HostApi→singleton renames (0.8.0).
+  `.instance` migration, HostApi→singleton renames (0.8.0), DTO→domain model migration (0.11.0).
 - **[decisions.md](decisions.md)** — `MainActivity` base class by version, singleton
-  vs old HostApi, which list widget, callback mixins.
+  vs old HostApi, which list widget, carousel vs grid banners, callback mixins.
 
 ## Intake — ask before you write
 
@@ -57,7 +57,7 @@ Two quick checks before any integration work:
 ## Before you answer or write integration code
 
 1. **Check the plugin version** in `pubspec.yaml` (`inappstory_plugin: X.Y.Z`);
-   if absent, ask. The API changed across 0.x (singletons, 0.8.0 renames) — answer
+   if absent, ask. The API changed across 0.x (singletons, 0.8.0 renames, 0.11.0 domain models & targeting) — answer
    for that version and fetch **migrations** for deltas.
 2. **Verify the native Android setup** — most "doesn't work on Android" reports are
    a missing `InAppStoryPlugin.initSDK` or `MainActivity` not extending
