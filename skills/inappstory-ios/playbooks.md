@@ -46,6 +46,7 @@ verify it runs (see **Verify a first integration** in SKILL.md).
 
 1. Init as above.
 2. `showSingle(...)` (renamed from `showSingleStory` in older SDKs).
+   - On 1.29.9+, use `showStoryWithTargeting(...)` to apply user targeting to ID requests.
    → [single-story](https://docs.inappstory.com/sdk-guides/ios/single-story)
 
 ## Add In-App Messaging (≥1.28 API)
@@ -54,6 +55,7 @@ verify it runs (see **Verify a first integration** in SKILL.md).
    { id, event, presentType in … return nil }` (new 3-arg signature — see pitfalls).
 2. Show: `showInAppMessageWith(id:targetView:onlyPreloaded:completion:)` or
    `showInAppMessageWith(event:targetView:onlyPreloaded:tags:completion:)`.
+   - On 1.29.9+, use `showInAppMessageWithTargeting(...)` to filter by targeting.
    SwiftUI: register a container with `.inAppMessageContainer()` and show via
    `showIAMWith(id:inContainer:...)`.
    → [in-app-messaging-v2](https://docs.inappstory.com/sdk-guides/ios/in-app-messaging-v2),
@@ -73,9 +75,16 @@ InAppStory.shared.failureEvent = { event in /* IASEvent.Failure.* */ }
 
 ## Switch user / change settings
 
-Reassign `InAppStory.shared.settings = Settings(userID:tags:)` (respect the 255B /
-4000B limits) **before** re-creating lists; readers refresh accordingly.
+Reassign `InAppStory.shared.settings = Settings(userID:tags:)` (respect the 255B
+userID limit and max 100 tags limit) **before** re-creating lists; readers refresh accordingly.
 → [user-settings](https://docs.inappstory.com/sdk-guides/ios/user-settings)
+
+## Add Banners
+
+- UIKit: `BannerView(frame:)` (carousel), `.verticalList` (internal scrolling), or
+  `.tilesList` (two-column grid). Lifecycle: `pause()` / `resume()`.
+- SwiftUI: `BannerCarouselView` or vertical/grid variants with `pause` / `resume` controls.
+→ [banners](https://docs.inappstory.com/sdk-guides/ios/banners)
 
 ## Reference integration (official example)
 

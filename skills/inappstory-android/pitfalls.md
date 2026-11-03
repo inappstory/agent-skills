@@ -48,6 +48,10 @@ exact deltas between that version and the latest.
   (disable the `SwipeRefreshLayout` during scroll). See FAQ.
 - **Banner scratch-card (1.25.0+) also needs parent-scroll locking** — use the new
   `BannerCarousel` vertical-gestures callback if banners sit in a scroll view.
+- **Banners List & Grid widgets (1.26.0+):** `BannerList` (lazy horizontal/vertical
+  list) and `BannerGrid` (vertical grid) widgets. Use `setPlaceId("...")` in code.
+  Control lifecycle via `pauseBanners()` / `resumeBanners()`. Customize via
+  `AppearanceManager().csBannerListInterface(...)` / `csBannerGridInterface(...)`.
 - **`AppearanceManager` is set via setter only since 1.21.0** (not as a property).
   Global: `AppearanceManager.setCommonInstance(am)` (the old `setInstance` is
   deprecated since 1.6). Per-list: `storiesList.setAppearanceManager(am)`.
@@ -72,3 +76,4 @@ full context, but the common ones:
 - 1.24: `finishGame` removed from `GameReaderCallback`; `ShowInAppMessageSlideCallback` signature changed.
 - 1.23: `showOnboardingStories`/`showStory`/`showStoryOnce`/`showInAppMessage` now return a `CancellationToken`.
 - 1.21: `GameStoryData`→`ContentData`; `clearCachedList`→`clearCachedListBy{Id,Feed,IdAndFeed}`; `tags` removed from `StoryData`.
+- 1.26: `AppearanceManager?` is nullable in `showStory`/`showStoryOnce`; single requests by ID support targeting (`showStoryWithTargeting`, `showStoryOnceWithTargeting`, `InAppMessageOpenSettings.useTargeting()`); tags limit changed to max 100 tags; Compose dep is `v1.1.26.0`.
