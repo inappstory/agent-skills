@@ -42,8 +42,9 @@ If you see `InAppStoryDelegate` in a modern project, it won't compile on ≥1.23
 
 ## Settings limits (1.21+)
 
-- `userID` ≤ **255 bytes**, `tags` ≤ **4000 bytes**. Exceeding a limit prints to
-  the IDE console and **the SDK stops working** — validate before assigning.
+- `userID` ≤ **255 bytes**. `tags` limit changed in 1.29.6+ to a **maximum of 100 tags**
+  (previously 4000 bytes). Exceeding a limit prints to the IDE console and **the SDK stops working**
+  — validate before assigning.
 - `userID`/`tags` can be omitted at `initWith(serviceKey:)` and set later via
   `InAppStory.shared.settings = Settings(userID:tags:)` **before** creating the list.
 
@@ -80,3 +81,15 @@ If you see `InAppStoryDelegate` in a modern project, it won't compile on ≥1.23
   `present(controller:for:with:)`.
 - **openGame re-entry (1.23):** calling `openGame` while a game is open does nothing;
   `complete` returns `opened == false` and `gameEvent` gets `.gameFailure`.
+- **Targeting by ID (1.29.9):** `showStoryWithTargeting` and `showInAppMessageWithTargeting`
+  enable targeting filters when requesting content by ID.
+- **Separate IAM / banner placeholders (1.29.9):** `placeholderIAMView` and
+  `placeholderBannerView` in `Appearance` customize IAM and banner loaders independently.
+- **Banner layouts & lifecycle (1.29.9):** `.verticalList` (internal scroll) and
+  `.tilesList` (2-column grid, external scroll) layouts added with `pause()` and `resume()`
+  controls in UIKit and SwiftUI.
+- **Input fields (1.29.9):** IAM, banners, and games support text, email, and telephone
+  inputs with optional custom `InputPresenter`.
+- **Lottie bridge (0.2.1):** `IASLottie` requires `airbnb/lottie-ios` >= 4.6.1.
+- **Extra fields (1.29.7):** `extraFields: [String: String]` on `StoryData`,
+  `InAppMessageData`, and `IASBannerData`.

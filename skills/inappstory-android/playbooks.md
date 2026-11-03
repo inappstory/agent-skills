@@ -42,6 +42,8 @@ verify it runs (see **Verify a first integration** in SKILL.md).
 1. Init as above.
 2. In the push handler: `InAppStoryManager.getInstance().showStory(storyId, context,
    appearanceManager, IShowStoryCallback)`.
+   - On 1.26.0+, use `showStoryWithTargeting(storyId, tags, context, appearanceManager, callback)`
+     or `showStoryOnceWithTargeting(...)` to enforce targeting filters (tags/options).
    → [single-story](https://docs.inappstory.com/sdk-guides/android/single-story),
    FAQ "Opening stories from push notifications".
 
@@ -50,7 +52,8 @@ verify it runs (see **Verify a first integration** in SKILL.md).
 1. Init as above.
 2. `showInAppMessage(...)` — **the method signature changed in 1.24.2** (new version
    takes a presentation container) and `ShowInAppMessageSlideCallback` changed in
-   1.24. Fetch the page and match the app's SDK version before writing the call.
+   1.24. On 1.26.0+, enable targeting for ID requests via `InAppMessageOpenSettings.useTargeting()`.
+   Fetch the page and match the app's SDK version before writing the call.
    → [in-app-messaging](https://docs.inappstory.com/sdk-guides/android/in-app-messaging)
 
 ## Switch user / logout
@@ -65,13 +68,24 @@ verify it runs (see **Verify a first integration** in SKILL.md).
 ## Personalize content (tags & placeholders)
 
 - **Tags** target which stories/onboardings appear: `.tags(...)` at init, or
-  `setTags/addTags/removeTags` later.
+  `setTags/addTags/removeTags` later (max 100 tags).
 - **Placeholders** replace `%variables%` in story content: `.placeholders(map)` /
   `setPlaceholder(key, value)`; image variants via `imagePlaceholders` /
   `ImagePlaceholderValue`.
   → [inappstory-manager](https://docs.inappstory.com/sdk-guides/android/inappstory-manager),
   [placeholders](https://docs.inappstory.com/sdk-guides/android/placeholders),
   [tags](https://docs.inappstory.com/sdk-guides/android/tags)
+
+## Add Banners (Carousel, List, Grid)
+
+- **BannerCarousel**: XML `<com.inappstory.sdk.banners.ui.carousel.BannerCarousel cs_place_id="..."/>`
+  or code. Control autoscroll: `bannerCarousel.startAutoscroll()` / `stopAutoscroll()`.
+  Handle vertical gestures (scratch-card): `bannerCarousel.verticalGestureAvailability(...)`.
+- **BannerList (1.26.0+)**: lazy vertical/horizontal list. Set place in code: `bannerList.setPlaceId("...")`.
+  Control lifecycle: `pauseBanners()` / `resumeBanners()`.
+- **BannerGrid (1.26.0+)**: non-scrollable vertical grid. Set place: `bannerGrid.setPlaceId("...")`.
+  Control lifecycle: `pauseBanners()` / `resumeBanners()`.
+  → [banners](https://docs.inappstory.com/sdk-guides/android/banners)
 
 ## Reference integration (official example)
 
