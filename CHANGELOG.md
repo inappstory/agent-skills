@@ -6,6 +6,21 @@ and each release is tagged `vX.Y.Z` (cut with `scripts/release`).
 
 ## [Unreleased]
 
+## [0.4.1]
+
+- Sync the skill indexes and judgment layers with latest Android and iOS SDK docs:
+  - **Android (1.26.0)**: document targeting by ID (`showStoryWithTargeting`,
+    `InAppMessageOpenSettings.useTargeting()`), `BannerList` and `BannerGrid`
+    widgets with lifecycle controls (`pauseBanners`/`resumeBanners`), nullable
+    `AppearanceManager?`, 100-tag limit, and Jetpack Compose (`v1.1.26.0`)
+    composables.
+  - **iOS (1.29.9 / IASLottie 0.2.1)**: document targeting by ID
+    (`showStoryWithTargeting`, `showInAppMessageWithTargeting`), `.verticalList`
+    and `.tilesList` banner layouts with `pause()`/`resume()` controls, separate
+    `placeholderIAMView` and `placeholderBannerView` loaders, input fields
+    support, 100-tag limit, and updated `IASLottie` bridge.
+  - Update `sync-docs.state` baseline.
+
 ## [0.4.0]
 
 - Sync the skill indexes and judgment layers with the latest SDK docs:
