@@ -17,7 +17,7 @@ verify it runs (see **Verify a first integration** in SKILL.md).
      `manifestPlaceholders['applicationName'] = '<your Application class>'`.
    - In your `Application.onCreate()`: `InAppStoryPlugin.initSDK(this)`.
    - `MainActivity` extends `InAppStoryActivity` (not `FlutterActivity`).
-3. **iOS native:** `pod install` in `ios/`.
+3. **iOS native:** `pod install` in `ios/` (or use Swift Package Manager with Flutter 3.24+).
 4. **Init (Dart, async):** `await InAppStoryPlugin().initWith('<apiKey>', '<userId>',
    locale:, cacheSize: CacheSize.medium)`.
 5. **Show the feed:** put `FeedStoriesWidget(feed: '<feedId>')` in the tree, gated
@@ -52,8 +52,7 @@ callbacks (the old `IASBannerPlaceCallback` mixin was removed in 0.7.6).
 
 ## Update user tags
 
-- Keep tags to letters, numbers, `_`, and `-`; the URL-encoded value must fit
-  within 3999 bytes.
+- Keep tags to letters, numbers, `_`, and `-`; maximum 100 tags in the list.
 - `setTags` replaces the full list; `addTags` and `removeTags` update it.
 - After changing tags, reload the `FeedStoriesController` so the feed reflects
   the new targeting.

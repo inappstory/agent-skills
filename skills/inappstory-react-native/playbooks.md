@@ -26,6 +26,8 @@ verify it runs (see **Verify a first integration** in SKILL.md).
 
 ## Feature entry points
 
+- Programmatic reader close: `storyManager.closeReaders()` closes any active reader
+  (stories, onboarding, IAM).
 - In-App Messaging — needs the `InAppStoryActivity` + manifest back-button setup.
   → [in-app-messaging](https://docs.inappstory.com/sdk-guides/react-native/in-app-messaging)
 - Games → [games](https://docs.inappstory.com/sdk-guides/react-native/games),
@@ -46,6 +48,7 @@ const config: StoryManagerConfig = { apiKey, appVersion: { version: '3.0.0', bui
 
 ## Personalize & switch user
 
-Tags / user via `StoryManagerConfig` and the manager API.
+- Tags / user via `StoryManagerConfig` and the manager API. Limit tags to max 100 items.
+- Toggle statistics dynamically without re-init: `storyManager.setSendStatistics(enabled)`.
 → [tags](https://docs.inappstory.com/sdk-guides/react-native/tags),
 [user-settings](https://docs.inappstory.com/sdk-guides/react-native/user-settings)

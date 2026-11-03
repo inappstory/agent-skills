@@ -6,6 +6,20 @@ and each release is tagged `vX.Y.Z` (cut with `scripts/release`).
 
 ## [Unreleased]
 
+## [0.4.0]
+
+- Sync the skill indexes and judgment layers with the latest SDK docs:
+  - **Flutter (0.10.0)**: document `ProductCartOffer.offerDescription` and
+    `GoodsItemDataDto.productDescription` renames, iOS Swift Package Manager (SPM)
+    support, `extraFields`, and the 100-tag limit.
+  - **React Native (1.1.0)**: document programmatic reader closing via
+    `storyManager.closeReaders()`, dynamic statistics toggle via
+    `storyManager.setSendStatistics()`, `extraFields`, and the 100-tag limit.
+  - **React & JS SDKs**: document user `targeting: true` and `signal` options
+    for single story (`showStory`/`showStoryOnce`) and IAM (`showMessageById`),
+    and `extraFields` payload attributes.
+  - Update `sync-docs.state` baseline.
+
 ## [0.3.0]
 
 - Sync the skill indexes and judgment layers with the latest SDK docs: add the
